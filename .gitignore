@@ -1,4 +1,5 @@
-/vendor
+# dihapus soalnya si hayyu gak bisa composer
+# /vendor
 /node_modules
 /bootstrap/compiled.php
 .env.*.php
