@@ -40,8 +40,9 @@
 	<body>
 		<div class="container">
 			<div class="content">
-				<div class="title">Laravel 5</div>
+				<div class="title">Laravel 3</div>
 				<div class="quote">{{ Inspiring::quote() }}</div>
+				<div><b><a href='{{URL::route("izin.jenis.index")}}'>Sample - Jenis Izin</a></b></div>
 			</div>
 		</div>
 	</body>

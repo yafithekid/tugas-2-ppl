@@ -8,9 +8,10 @@
         @include('layouts.header')
     @show
 
-
-    @yield('content')
-
+    <div class='container'>
+        @yield('content')
+    </div>
+    
     @section('footer')
         @include('layouts.footer')
     @stop

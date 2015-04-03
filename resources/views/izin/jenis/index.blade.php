@@ -3,10 +3,11 @@
 @section('content')
 <div>
     {{-- generate url berdasarkan route --}}
-    <a href='{{URL::route("izin.jenis.create")}}'>Tambah Jenis Izin</a>
+    <a href='{{URL::route("izin.jenis.create")}}' class='btn btn-primary'>Tambah Jenis Izin</a>
 </div>
+<br/>
 @if (count($list_jenis_izin) > 0)
-    <table>
+    <table class='table'>
         <tr>
             <th>Nama</th>
             <th>Biaya</th>
@@ -18,9 +19,9 @@
             <td>{{$jenis_izin->nama}}</td>
             <td>{{$jenis_izin->biaya}}</td>
             <td>
-                <a href='{{URL::route("izin.jenis.read",["id"=>$jenis_izin->id])}}'>Lihat</a> |
-                <a href='{{URL::route("izin.jenis.update",["id"=>$jenis_izin->id])}}'>Ubah</a> | 
-                <a href='{{URL::route("izin.jenis.delete",["id"=>$jenis_izin->id])}}' onclick='return confirm("Hapus?")'>Hapus</a>
+                <a href='{{URL::route("izin.jenis.read",["id"=>$jenis_izin->id])}}'><i class='glyphicon glyphicon-eye-open'></i></a>
+                <a href='{{URL::route("izin.jenis.update",["id"=>$jenis_izin->id])}}'><i class='glyphicon glyphicon-pencil'></i></a> 
+                <a href='{{URL::route("izin.jenis.delete",["id"=>$jenis_izin->id])}}' onclick='return confirm("Hapus?")'><i class='glyphicon glyphicon-remove'></i></a>
             </td>
         </tr>
         @endforeach
