@@ -34,6 +34,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `angkutan` (
 `id` int(11) NOT NULL,
+  `nama` varchar(100) NOT NULL,
   `no_kendaraan` int(11) NOT NULL,
   `izin_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -62,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `izin` (
   `tanggal_pengaduan` date NOT NULL,
   `deskripsi` text NOT NULL,
   `status_pembayaran` tinyint(1) NOT NULL,
-  `penguna_id` int(11) NOT NULL,
+  `pengguna_id` int(11) NOT NULL,
   `jenisizin_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
