@@ -12,6 +12,18 @@
     font-weight: bold;
 }
 
+#header a:hover {
+    color:white !important;
+}
+
+#header .open a{
+    background: #E6E9ED !important;
+}
+
+#header .dropdown-menu {
+    background: #E6E9ED;
+}
+
 #header .navbar-brand{
     font-size: 36px;
     font-weight: bold;

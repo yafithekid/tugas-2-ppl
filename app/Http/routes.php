@@ -11,10 +11,16 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+//Route::get('/', 'WelcomeController@index');
 
-Route::get('home', 'HomeController@index');
+Route::get('/admin',['as'=>'home.admin','uses'=>'WelcomeController@index']);
+Route::get('/',['as'=>'home','uses'=>'HomeController@index']);
 
+Route::group(['namespace'=>'Auth'],function(){
+    Route::get('/login',['as'=>'login','uses'=>'AuthController@getLogin']);
+    Route::post('/login',['as'=>'login.submit','uses'=>'AuthController@postLogin']);
+    Route::get('/logout',['as'=>'logout','uses'=>'AuthController@getLogout']);
+});
 Route::group(['prefix'=>'izin','namespace'=>'Izin'],function(){
     Route::group(['prefix'=>'jenis'],function(){
         Route::get('/create',['as'=>'izin.jenis.create','uses'=>'JenisController@getCreate']);
