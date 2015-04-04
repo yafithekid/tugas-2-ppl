@@ -34,9 +34,9 @@ class AuthController extends Controller {
 		} else {
 			Auth::login($pengguna);
 			if ($pengguna->is_admin){
-				return redirect()->route('home.admin');
+				return redirect()->route('izin.admin.index');
 			} else {
-				return redirect()->route('home');
+				return redirect()->route('izin.pengguna.index');
 			}
 		}
 	}
