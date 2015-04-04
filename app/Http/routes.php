@@ -41,6 +41,17 @@ Route::group(['prefix'=>'izin','namespace'=>'Izin'],function(){
         Route::get('/{id}/read',['as'=>'izin.jenis.read','uses'=>'JenisController@getRead']);
         Route::get('/',['as'=>'izin.jenis.index','uses'=>'JenisController@getIndex']);
     });
+
+    //ubah status izin
+    Route::group(['prefix'=>'status'],function(){
+        Route::get('/create',['as'=>'izin.status.create','uses'=>'StatusController@getCreate']);
+        Route::post('/create',['as'=>'izin.status.create.submit','uses'=>'StatusController@postCreate']);
+        Route::get('/{id}/update',['as'=>'izin.status.update','uses'=>'StatusController@getUpdate']);
+        Route::post('/{id}/update',['as'=>'izin.status.update.submit','uses'=>'StatusController@postUpdate']);
+        Route::get('/{id}/delete',['as'=>'izin.status.delete','uses'=>'StatusController@getDelete']);
+        Route::get('/{id}/read',['as'=>'izin.status.read','uses'=>'StatusController@getRead']);
+        Route::get('/',['as'=>'izin.status.index','uses'=>'StatusController@getIndex']);
+    });
 });
 
 Route::controllers([
