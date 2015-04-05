@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Request;
 use App\Models\Izin;
 use App\Models\JenisIzin;
+use App\Models\Dokumen;
 use Auth;
 
 class PenggunaController extends Controller {
@@ -36,12 +37,27 @@ class PenggunaController extends Controller {
 		$izin->pengguna_id = Auth::user()->id;
 		$izin->tanggal_pengajuan = date("Y-m-d");
 		$izin->save();
+		
 		return redirect()->route('izin.pengguna.read',['id'=>$izin->id]);
 	}
 
 	public function getRead($id)
 	{
-		return view('izin.pengguna.read');
+		$izin = Izin::findOrFail($id);
+		$templates = $izin->jenisIzin->templates;
+		//generate dokumen
+		foreach ($templates as $template) {
+			if (Dokumen::where('izin_id','=',$id)->where('template_id','=',$template->id)->first()==null){
+				$dokumen = new Dokumen();
+				$dokumen->nama = $template->nama;
+				$dokumen->izin_id = $id;
+				$dokumen->template_id = $template->id;
+				$dokumen->save();
+			}
+		}
+		$izin = Izin::where('id','=',$id)->with('dokumens')->first();
+		$list_status = $izin->status()->orderBy('tanggal','desc')->get();
+		return view('izin.pengguna.read',['izin'=>$izin,'list_status'=>$list_status]);
 	}
 
 }

@@ -3,21 +3,23 @@
 @section('content')
 
 	<div class ='row'>
-		<h2>Detail Izin</h2>
+		<h3>Detail Izin: {{$izin->jenisIzin->nama}}</h3>
 	</div>
 
 	<!-- Pemohon -->
 	<div class ='row'>
-		<p>Pemohon : Muhammad Yafi</p>
+		<div class='col-md-12'>
+            <div class='col-md-2'>Nama</div><div class='col-md-10'>{{$izin->pengguna->nama}}</div>
+            <div class='col-md-2'>No KTP</div><div class='col-md-10'>{{$izin->pengguna->no_ktp}}</div>
+            <div class='col-md-2'>Alamat</div><div class='col-md-10'>{{$izin->pengguna->alamat}}</div>
+        </div>
+        <div class='clearfix'></div>
 	</div><!-- end of Pemohon -->
 
 	<!-- Keterangan -->
 	<div class ='row'>
 		<div class="alert alert-info" role="alert">
-			<ul>
-				<li><p>Keterangan berdasarkan status</p></li>
-				<li><p>Keterangan berdasarkan admin</p></li>
-			</ul>
+            <p>{{$izin->getCurrentNamaStatus()}}</p>
 		</div>
 	</div><!-- end of Keterangan -->
 
@@ -26,61 +28,31 @@
 		<div class ='col-xs-12'>
 			<div class="panel panel-primary">
 			  <div class="panel-heading"><h7>Dokumen yang harus dipenuhi</h7></div>
-			  	<table class='table table-hover'>
+			  	<table class='table table-hover' style='font-size:12px;'>
 					<tr>
 						<th>No. </th>
 						<th>Nama </th>
 						<th>Status </th>
 						<th>Upload </th>
 					</tr>
-
-					<tr>
-						<td>1. </td>
-						<td>Dokumen 1</td>
-						<td>Belum diupload</td>
-						<td>
-							<form class="form-inline" action="#" method="post" enctype="multipart/form-data">
-								<div class="form-group">
-							    	<input type="file" name="fileToUpload" id="fileToUpload"/>
-							   	</div>
-							   	<div class="form-group">
-							    	<button class='btn btn-primary btn-sm' type="submit">Submit</input>
-							    </div>
-							</form>
-						</td>
-					</tr>
-
-					<tr class='warning'>
-						<td>2. </td>
-						<td>Dokumen 2</td>
-						<td>Revisi</td>
-						<td>
-							<form class="form-inline" action="#" method="post" enctype="multipart/form-data">
-								<div class="form-group">
-							    	<input type="file" name="fileToUpload" id="fileToUpload"/>
-							   	</div>
-							   	<div class="form-group">
-							    	<button class='btn btn-primary btn-sm' type="submit">Submit</input>
-							    </div>
-							</form>
-						</td>
-					</td>
-
-					<tr class='success'>
-						<td>2. </td>
-						<td>Dokumen 2</td>
-						<td>Diterima</td>
-						<td>
-							<form class="form-inline" action="#" method="post" enctype="multipart/form-data">
-								<div class="form-group">
-							    	<input type="file" name="fileToUpload" id="fileToUpload"/>
-							   	</div>
-							   	<div class="form-group">
-							    	<button class='btn btn-primary btn-sm' type="submit">Submit</input>
-							    </div>
-							</form>
-						</td>
-					</tr>
+                    <?php $i = 0; ?>
+                    @foreach ($izin->dokumens as $dokumen)
+                    <tr>
+                        <td>{{++$i}}</td>
+                        <td>{{$dokumen->nama}}</td>
+                        <td>{{$dokumen->url}}</td>
+                        <td>
+                            <form class="form-inline" action="#" method="post" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <input type="file" name="fileToUpload" id="fileToUpload"/>
+                                </div>
+                                <div class="form-group">
+                                    <button class='btn btn-primary btn-sm' type="submit">Submit</input>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach
 				</table>
 			</div>
 		</div>
@@ -88,7 +60,6 @@
 
 	<div class='row'>
 		<a href='#' class="btn btn-primary">Batalkan Izin</a>
-		<a href='#' class="btn btn-primary">Ubah Status</a>
 	</div>
 
 	<br>
@@ -102,12 +73,12 @@
 				</div>
 				<div class="panel-body">
 					<ul>
+                        @foreach($list_status as $status)
 						<li>27-12-12 Dokumen diterima</li>
-						<li>27-13-12 Dokumen disetujui</li>
+						@endforeach
 					</ul>
 				</div>
 			</div>
 		</div>
-	</div><!-- Log Status -->
-
+	</div>
 @endsection
