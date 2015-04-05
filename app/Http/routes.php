@@ -45,6 +45,10 @@ Route::group(['prefix'=>'izin','namespace'=>'Izin'],function(){
         Route::get('/',['as'=>'izin.jenis.index','uses'=>'JenisController@getIndex']);
     });
 
+    Route::group(['prefix'=>'template'],function(){
+        Route::get('/index',['as'=>'izin.template.index','uses'=>'TemplateController@getIndex']);
+    });
+
     //ubah status izin
     Route::group(['prefix'=>'status'],function(){
         Route::get('/create',['as'=>'izin.status.create','uses'=>'StatusController@getCreate']);

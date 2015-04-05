@@ -23,5 +23,6 @@
     <ul class='list-group'>
         <a href='{{route('izin.status.index')}}'><li class='list-group-item'>Status Izin</li></a>
         <a href='{{route('izin.jenis.index')}}'><li class='list-group-item'>Jenis Izin</li></a>
+        <a href='{{route('izin.template.index')}}'><li class='list-group-item'>Template Izin</li></a>
     </ul>
 </div>

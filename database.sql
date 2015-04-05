@@ -9,7 +9,7 @@ USE `tugas_2_ppl`;
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 02, 2015 at 02:46 PM
+-- Generation Time: Apr 05, 2015 at 06:31 AM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -49,7 +49,8 @@ CREATE TABLE IF NOT EXISTS `dokumen` (
 `id` int(11) NOT NULL,
   `nama` varchar(50) NOT NULL,
   `url` varchar(100) NOT NULL,
-  `izin_id` int(11) NOT NULL
+  `izin_id` int(11) NOT NULL,
+  `template_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -60,11 +61,13 @@ CREATE TABLE IF NOT EXISTS `dokumen` (
 
 CREATE TABLE IF NOT EXISTS `izin` (
 `id` int(11) NOT NULL,
-  `tanggal_pengaduan` date NOT NULL,
+  `tanggal_pengajuan` date NOT NULL,
   `deskripsi` text NOT NULL,
   `status_pembayaran` tinyint(1) NOT NULL,
   `pengguna_id` int(11) NOT NULL,
-  `jenisizin_id` int(11) NOT NULL
+  `jenisizin_id` int(11) NOT NULL,
+  `biaya` int(11) DEFAULT NULL,
+  `is_updated` tinyint(4) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -75,9 +78,16 @@ CREATE TABLE IF NOT EXISTS `izin` (
 
 CREATE TABLE IF NOT EXISTS `jenisizin` (
 `id` int(11) NOT NULL,
-  `nama` varchar(50) NOT NULL,
-  `biaya` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `nama` varchar(50) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `jenisizin`
+--
+
+INSERT INTO `jenisizin` (`id`, `nama`) VALUES
+(5, 'Izin Usaha Angkutan Umum'),
+(6, 'Izin Usaha Taksi');
 
 -- --------------------------------------------------------
 
@@ -93,7 +103,15 @@ CREATE TABLE IF NOT EXISTS `pengguna` (
   `no_ktp` varchar(30) NOT NULL,
   `email` varchar(50) NOT NULL,
   `is_admin` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pengguna`
+--
+
+INSERT INTO `pengguna` (`id`, `password`, `nama`, `alamat`, `no_ktp`, `email`, `is_admin`) VALUES
+(1, 'admin', 'Administrator', 'Admin', '1234567891110001', 'admin@gmail.com', 1),
+(2, 'kevin', 'Kevin Yudi', 'kevin', '3471070102030002', 'kevin@gmail.com', 0);
 
 -- --------------------------------------------------------
 
@@ -103,8 +121,21 @@ CREATE TABLE IF NOT EXISTS `pengguna` (
 
 CREATE TABLE IF NOT EXISTS `status` (
 `id` int(11) NOT NULL,
-  `nama` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `nama` varchar(50) NOT NULL,
+  `keterangan` text
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `status`
+--
+
+INSERT INTO `status` (`id`, `nama`, `keterangan`) VALUES
+(7, 'Melengkapi dokumen', 'Pemohon izin diwajibkan melengkapi dokumen-dokumen yang dibutuhkan'),
+(8, 'Pemeriksaan lapangan', 'Kami akan melakukan pemeriksaan terkait kendaraan dan kondisi lapangan.'),
+(9, 'Izin ditolak', 'Izin anda bermasalah. Anda tidak memenuhi persyaratan'),
+(10, 'Penyerahan SKRD', 'Mohon serahkan bukti pembayaran SKRD dengan biaya sesuai ketetapan yang dicantumkan'),
+(11, 'Izin diterima', 'Izin sudah diterbitkan. Silakan mengambil izin di kantor.'),
+(12, 'Pengajuan izin dibatalkan', 'Izin ini dibatalkan oleh pemohon');
 
 -- --------------------------------------------------------
 
@@ -126,9 +157,25 @@ CREATE TABLE IF NOT EXISTS `status_izin` (
 
 CREATE TABLE IF NOT EXISTS `template` (
 `id` int(11) NOT NULL,
-  `nama` varchar(50) NOT NULL,
-  `url` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `nama` varchar(200) NOT NULL,
+  `url` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `template`
+--
+
+INSERT INTO `template` (`id`, `nama`, `url`) VALUES
+(3, 'Fotocopy Surat Izin Tempat Usaha (SITU)', NULL),
+(4, 'Fotocopy KTP Pemohon', NULL),
+(5, 'Fotokopi NPWP', NULL),
+(6, 'Surat Permohonan Izin Usaha Angkutan', NULL),
+(7, 'Surat Izin Usaha Perdagangan', NULL),
+(8, 'Foto Garasi/Tempat Penyimpanan Kendaraan', NULL),
+(9, 'Fotocopy SK Izin Trayek', NULL),
+(10, 'Surat Pernyataan Tidak Melakukan Pengeteman dengan Materai Rp6000', NULL),
+(11, 'Fotocopy Buku Uji', NULL),
+(12, 'Fotocopy STNK', NULL);
 
 -- --------------------------------------------------------
 
@@ -151,7 +198,16 @@ CREATE TABLE IF NOT EXISTS `terminal` (
 `id` int(11) NOT NULL,
   `nama` varchar(50) NOT NULL,
   `alamat` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `terminal`
+--
+
+INSERT INTO `terminal` (`id`, `nama`, `alamat`) VALUES
+(1, 'Kalapa', 'Jalan Pungkur'),
+(2, 'Dago', 'Jalan Juanda'),
+(3, 'Sadang Serang', 'Jalan Sadang Serang\r\n');
 
 -- --------------------------------------------------------
 
@@ -178,13 +234,13 @@ ALTER TABLE `angkutan`
 -- Indexes for table `dokumen`
 --
 ALTER TABLE `dokumen`
- ADD PRIMARY KEY (`id`), ADD KEY `dokumenizin` (`izin_id`);
+ ADD PRIMARY KEY (`id`), ADD KEY `dokumenizin` (`izin_id`), ADD KEY `template_id` (`template_id`);
 
 --
 -- Indexes for table `izin`
 --
 ALTER TABLE `izin`
- ADD PRIMARY KEY (`id`), ADD KEY `izinpengguna` (`penguna_id`), ADD KEY `izinjenisizin` (`jenisizin_id`);
+ ADD PRIMARY KEY (`id`), ADD KEY `izinpengguna` (`pengguna_id`), ADD KEY `izinjenisizin` (`jenisizin_id`);
 
 --
 -- Indexes for table `jenisizin`
@@ -257,27 +313,27 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `jenisizin`
 --
 ALTER TABLE `jenisizin`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `pengguna`
 --
 ALTER TABLE `pengguna`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `status`
 --
 ALTER TABLE `status`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `template`
 --
 ALTER TABLE `template`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `terminal`
 --
 ALTER TABLE `terminal`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- Constraints for dumped tables
 --
@@ -292,14 +348,15 @@ ADD CONSTRAINT `angkutan_ibfk_1` FOREIGN KEY (`izin_id`) REFERENCES `izin` (`id`
 -- Constraints for table `dokumen`
 --
 ALTER TABLE `dokumen`
-ADD CONSTRAINT `dokumen_ibfk_1` FOREIGN KEY (`izin_id`) REFERENCES `izin` (`id`);
+ADD CONSTRAINT `dokumen_ibfk_1` FOREIGN KEY (`izin_id`) REFERENCES `izin` (`id`),
+ADD CONSTRAINT `dokumen_ibfk_2` FOREIGN KEY (`template_id`) REFERENCES `template` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `izin`
 --
 ALTER TABLE `izin`
-ADD CONSTRAINT `izin_ibfk_1` FOREIGN KEY (`penguna_id`) REFERENCES `pengguna` (`id`),
-ADD CONSTRAINT `izin_ibfk_2` FOREIGN KEY (`jenisizin_id`) REFERENCES `jenisizin` (`id`);
+ADD CONSTRAINT `izin_ibfk_2` FOREIGN KEY (`jenisizin_id`) REFERENCES `jenisizin` (`id`),
+ADD CONSTRAINT `izin_ibfk_3` FOREIGN KEY (`pengguna_id`) REFERENCES `pengguna` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `status_izin`
