@@ -28,7 +28,7 @@ Route::group(['prefix'=>'izin','namespace'=>'Izin'],function(){
         Route::get('/index',['as'=>'izin.pengguna.index','uses'=>'PenggunaController@getIndex']);
         Route::get('/create',['as'=>'izin.pengguna.create','uses' => 'PenggunaController@getCreate']);
         Route::post('/create',['as'=>'izin.pengguna.create.submit','uses' => 'PenggunaController@postCreate']);
-        Route::get('/read',['as'=>'izin.pengguna.read','uses'=>'PenggunaController@getRead']);
+        Route::get('/{id}/read',['as'=>'izin.pengguna.read','uses'=>'PenggunaController@getRead']);
     });
     //CRUD untuk admin
     Route::group(['prefix'=>'admin'],function(){
