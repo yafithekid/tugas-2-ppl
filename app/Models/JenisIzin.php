@@ -19,4 +19,9 @@ class JenisIzin extends Model {
         'nama' => ['required'],
         'biaya' => ['numeric','required']
     ];
+
+    public function templates()
+    {
+        return $this->belongsToMany('App\Models\Template','template_izin','jenisizin_id','template_id');
+    }
 }

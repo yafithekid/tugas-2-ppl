@@ -29,6 +29,12 @@
     font-weight: bold;
 }
 
+.sidebar a {
+    color: black;
+}
+.sidebar .list-group-item:hover {
+    background-color: #e6e9ed;
+}
 .form-header {
     border-bottom: 3px solid #FFCE54;
     font-size: 2em;

@@ -4,6 +4,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use App\Models\Izin;
+use App\Models\JenisIzin;
 
 class PenggunaController extends Controller {
 	public function __construct(){
@@ -19,7 +21,17 @@ class PenggunaController extends Controller {
 	//bikin izin baru
 	public function getCreate()
 	{
+		$list_jenisizin = JenisIzin::with('templates')->get();
+		return view('izin.pengguna.create',[
+			'izin'=>new Izin(),
+			'list_jenisizin' => $list_jenisizin,
+		]);
+	}
 
+	public function postCreate()
+	{
+		$izin = new Izin();
+		
 	}
 
 	public function getRead($id)

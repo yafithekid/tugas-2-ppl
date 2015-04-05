@@ -26,6 +26,9 @@ Route::group(['prefix'=>'izin','namespace'=>'Izin'],function(){
     //CRUD untuk pengguna
     Route::group(['prefix'=>'pengguna'],function(){
         Route::get('/index',['as'=>'izin.pengguna.index','uses'=>'PenggunaController@getIndex']);
+        Route::get('/create',['as'=>'izin.pengguna.create','uses' => 'PenggunaController@getCreate']);
+        Route::post('/create',['as'=>'izin.pengguna.create.submit','uses' => 'PenggunaController@postCreate']);
+        Route::get('/read',['as'=>'izin.pengguna.read','uses'=>'PenggunaController@getRead']);
     });
     //CRUD untuk admin
     Route::group(['prefix'=>'admin'],function(){
@@ -40,6 +43,10 @@ Route::group(['prefix'=>'izin','namespace'=>'Izin'],function(){
         Route::get('/{id}/delete',['as'=>'izin.jenis.delete','uses'=>'JenisController@getDelete']);
         Route::get('/{id}/read',['as'=>'izin.jenis.read','uses'=>'JenisController@getRead']);
         Route::get('/',['as'=>'izin.jenis.index','uses'=>'JenisController@getIndex']);
+    });
+
+    Route::group(['prefix'=>'template'],function(){
+        Route::get('/index',['as'=>'izin.template.index','uses'=>'TemplateController@getIndex']);
     });
 
     //ubah status izin
