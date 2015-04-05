@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Request;
 use App\Models\Izin;
 use App\Models\JenisIzin;
 use App\Models\Dokumen;
+use App\Models\StatusIzin;
+use App\Models\Status;
 use Auth;
 
 class PenggunaController extends Controller {
@@ -37,7 +39,13 @@ class PenggunaController extends Controller {
 		$izin->pengguna_id = Auth::user()->id;
 		$izin->tanggal_pengajuan = date("Y-m-d");
 		$izin->save();
-		
+
+		$statusIzin = new StatusIzin;
+		$statusIzin->izin_id = $izin->id;
+		$statusIzin->status_id = Status::STATUS_MELENGKAPI_DOKUMEN;
+		$statusIzin->tanggal = date("Y-m-d");
+		$statusIzin->save();
+
 		return redirect()->route('izin.pengguna.read',['id'=>$izin->id]);
 	}
 

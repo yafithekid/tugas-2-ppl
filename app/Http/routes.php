@@ -33,6 +33,8 @@ Route::group(['prefix'=>'izin','namespace'=>'Izin'],function(){
     //CRUD untuk admin
     Route::group(['prefix'=>'admin'],function(){
         Route::get('/index',['as'=>'izin.admin.index','uses'=>'AdminController@getIndex']);
+        Route::get('/{id}/update',['as'=>'izin.admin.update','uses'=>'AdminController@getUpdate']);
+        Route::post('/{id}/update',['as'=>'izin.admin.update.submit','uses'=>'AdminController@postUpdate']);
     });
     //ubah jenis izin
     Route::group(['prefix'=>'jenis'],function(){

@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-use Status;
+use App\Models\Status;
 class Izin extends Model {
 
 	protected $table = 'izin';

@@ -1,0 +1,33 @@
+@extends('layouts.admin')
+@section('content')
+
+<!-- Form Edit -->
+<div class='row'>
+	<div class ='col-xs-6'>
+	  	<div class='form-header'>Update Izin</div>
+        <form action={{"/izin/admin/". $izin->id ."/update"}} method='post'>
+
+        	<div>
+			    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+			</div>
+
+        	<div class='form-group'>
+        		<label>Status</label>
+        		<select name='status' class='form-control' value={{$currentStatus}}>
+        			@foreach ($listStatus as $status)
+        				<option value={{$status->id}}>{{$status->nama}}</option>
+        			@endforeach
+        		</select>
+        	</div>
+
+        	<div class='form-group'>
+        		<label>Deskripsi</label>
+        		<textarea name='deskripsi' type='text'class='form-control'>{{$izin->deskripsi}}</textarea>
+        	</div>
+
+        	<button type='submit' class='btn btn-primary'>Submit</button>
+        </form>
+	</div>
+</div><!-- end Form Edit -->
+
+@endsection
