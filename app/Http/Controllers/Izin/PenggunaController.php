@@ -3,9 +3,10 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request;
 use App\Models\Izin;
 use App\Models\JenisIzin;
+use Auth;
 
 class PenggunaController extends Controller {
 	public function __construct(){
@@ -31,7 +32,11 @@ class PenggunaController extends Controller {
 	public function postCreate()
 	{
 		$izin = new Izin();
-		
+		$izin->jenisizin_id = Request::input('jenisizin_id');
+		$izin->pengguna_id = Auth::user()->id;
+		$izin->tanggal_pengajuan = date("Y-m-d");
+		$izin->save();
+		return redirect()->route('izin.pengguna.read',['id'=>$izin->id]);
 	}
 
 	public function getRead($id)

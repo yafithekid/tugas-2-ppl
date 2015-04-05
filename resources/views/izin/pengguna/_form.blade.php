@@ -12,12 +12,6 @@
     </select>
 </div>
 
-<div class='form-group'>
-    <label for='deskripsi'>Deskripsi</label>
-    <textarea name='deskripsi' type='text' class='form-control'>{{$izin->deskripsi}}</textarea>
-    <span>{{$errors->first('deskripsi')}}</span>
-</div>
-
 {{-- Daftar tabel yang dibutuhkan--}}
 @foreach($list_jenisizin as $jenis_izin)
     <div class='form-group daftar-dokumen' id='daftar-dokumen-{{$jenis_izin->id}}'>

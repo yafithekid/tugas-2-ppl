@@ -8,10 +8,5 @@
     <span>{{$errors->first('nama')}}</span>
 </div>
 <div class='form-group'>
-    <label for='biaya'>Biaya</label>
-    <input name='biaya' type='text' value='{{$jenis_izin->biaya}}' class='form-control'/>
-    <span>{{$errors->first('biaya')}}</span>
-</div>
-<div class='form-group'>
     <input type='submit' value='{{$button}}' class='btn btn-primary'/>
 </div>

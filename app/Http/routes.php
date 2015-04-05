@@ -43,6 +43,8 @@ Route::group(['prefix'=>'izin','namespace'=>'Izin'],function(){
         Route::get('/{id}/delete',['as'=>'izin.jenis.delete','uses'=>'JenisController@getDelete']);
         Route::get('/{id}/read',['as'=>'izin.jenis.read','uses'=>'JenisController@getRead']);
         Route::get('/',['as'=>'izin.jenis.index','uses'=>'JenisController@getIndex']);
+        Route::get('/{id}/add-template/{template_id}',['as'=>'izin.jenis.add_template','uses'=>'JenisController@getAddTemplate']);
+        Route::get('/{id}/delete-template/{template_id}',['as'=>'izin.jenis.delete_template','uses'=>'JenisController@getDeleteTemplate']);
     });
 
     Route::group(['prefix'=>'template'],function(){
