@@ -67,7 +67,13 @@ class IzinController extends Controller {
 	 */
 	public function update($id)
 	{
-		//
+		Izin::findOrFail($id);
+		$data = [
+			'deskripsi' => Request::input('deskripsi'),
+			'status_pembayaran' => Request::input('status_pembayaran'),
+			]
+
+		Izin::create($data);
 	}
 
 	/**

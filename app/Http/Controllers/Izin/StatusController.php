@@ -38,7 +38,6 @@ class StatusController extends Controller {
 			'nama' => Request::input('nama')
 		];
 		$validator = Validator::make($data,Status::$rules);
-		
 		$status = new Status();
 		$status->nama = $data['nama'];
 
@@ -48,7 +47,6 @@ class StatusController extends Controller {
 			return view('izin.status.create',['status'=>$status,'errors'=>$validator->errors()]);
 		} else { //berhasil
 			//simpen data
-			
 			//bawaan Eloquent ORM
 			$status->save();
 			return redirect()->route('izin.status.index');
