@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Request;
 
 use App\Models\JenisIzin;
+use App\Models\TemplateIzin;
+use App\Models\Template;
 use Validator;
 use DB;
 
@@ -42,14 +44,12 @@ class JenisController extends Controller {
 		//ambil data dari input
 		//kalo yang postUpdate, ambil datanya otomatis.
 		$data = [
-			'nama' => Request::input('nama'),
-			'biaya' => Request::input('biaya')
+			'nama' => Request::input('nama')
 		];
 		$validator = Validator::make($data,JenisIzin::$rules);
 		
 		$jenis_izin = new JenisIzin();
 		$jenis_izin->nama = $data['nama'];
-		$jenis_izin->biaya = $data['biaya'];
 
 		//gagal
 		if ($validator->fails()){
@@ -66,8 +66,9 @@ class JenisController extends Controller {
 
 	public function getUpdate($id)
 	{
-		$jenis_izin = JenisIzin::findOrFail($id);
-		return view('izin.jenis.update',['jenis_izin'=>$jenis_izin]);
+		$jenis_izin = JenisIzin::where('id','=',$id)->with('templates')->firstOrFail();
+		return view('izin.jenis.update',['jenis_izin'=>$jenis_izin,
+			'list_template'=>Template::all()]);
 	}
 
 	public function postUpdate($id)
@@ -88,8 +89,30 @@ class JenisController extends Controller {
 
 	public function getRead($id)
 	{
-		$jenis_izin = JenisIzin::findOrFail($id);
-		return view('izin.jenis.read',['jenis_izin'=>$jenis_izin]);
+		$jenis_izin = JenisIzin::where('id','=',$id)->with('templates')->firstOrFail();
+		return view('izin.jenis.read',[
+			'jenis_izin'=>$jenis_izin,
+		]);
+	}
+
+	public function getAddTemplate($id,$template_id)
+	{
+		//biar gak dobel
+		$template_izin = TemplateIzin::where('jenisizin_id','=',$id)->where('template_id','=',$template_id)->first();
+		if ($template_izin == null){
+			DB::table('template_izin')
+			->insert(['jenisizin_id'=>$id,'template_id'=>$template_id]);
+		}
+		return redirect()->route('izin.jenis.update',['id'=>$id]);
+	}
+
+	public function getDeleteTemplate($id,$template_id)
+	{
+		DB::table('template_izin')
+			->where('jenisizin_id','=',$id)
+			->where('template_id','=',$template_id)
+			->delete();
+		return redirect()->route('izin.jenis.update',['id'=>$id]);
 	}
 
 	public function getDelete($id)

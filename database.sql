@@ -9,7 +9,7 @@ USE `tugas_2_ppl`;
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 05, 2015 at 06:31 AM
+-- Generation Time: Apr 05, 2015 at 11:38 AM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -62,8 +62,8 @@ CREATE TABLE IF NOT EXISTS `dokumen` (
 CREATE TABLE IF NOT EXISTS `izin` (
 `id` int(11) NOT NULL,
   `tanggal_pengajuan` date NOT NULL,
-  `deskripsi` text NOT NULL,
-  `status_pembayaran` tinyint(1) NOT NULL,
+  `deskripsi` text,
+  `status_pembayaran` tinyint(1) NOT NULL DEFAULT '0',
   `pengguna_id` int(11) NOT NULL,
   `jenisizin_id` int(11) NOT NULL,
   `biaya` int(11) DEFAULT NULL,
@@ -159,7 +159,7 @@ CREATE TABLE IF NOT EXISTS `template` (
 `id` int(11) NOT NULL,
   `nama` varchar(200) NOT NULL,
   `url` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `template`
@@ -175,7 +175,8 @@ INSERT INTO `template` (`id`, `nama`, `url`) VALUES
 (9, 'Fotocopy SK Izin Trayek', NULL),
 (10, 'Surat Pernyataan Tidak Melakukan Pengeteman dengan Materai Rp6000', NULL),
 (11, 'Fotocopy Buku Uji', NULL),
-(12, 'Fotocopy STNK', NULL);
+(12, 'Fotocopy STNK', NULL),
+(13, 'Surat Pernyataan tidak keberatan dari tetangga.', NULL);
 
 -- --------------------------------------------------------
 
@@ -187,6 +188,21 @@ CREATE TABLE IF NOT EXISTS `template_izin` (
   `jenisizin_id` int(11) NOT NULL,
   `template_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `template_izin`
+--
+
+INSERT INTO `template_izin` (`jenisizin_id`, `template_id`) VALUES
+(5, 3),
+(5, 4),
+(5, 5),
+(5, 6),
+(5, 7),
+(5, 8),
+(5, 9),
+(5, 10),
+(5, 13);
 
 -- --------------------------------------------------------
 
@@ -328,7 +344,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 -- AUTO_INCREMENT for table `template`
 --
 ALTER TABLE `template`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `terminal`
 --

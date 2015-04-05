@@ -1,5 +1,6 @@
 @extends('layouts.admin')
 
 @section('content')
-    {{$status->nama}} {{$status->biaya}}  
+    {{$status->nama}}
+    
 @stop

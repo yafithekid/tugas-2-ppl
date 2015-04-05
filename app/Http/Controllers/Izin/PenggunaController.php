@@ -31,7 +31,8 @@ class PenggunaController extends Controller {
 	public function postCreate()
 	{
 		$izin = new Izin();
-		
+		echo date("Y-m-d");
+		exit();
 	}
 
 	public function getRead($id)
