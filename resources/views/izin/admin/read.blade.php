@@ -55,7 +55,7 @@
                     </td>
                     <!-- end of status Dokumen -->
 
-                    <!--tombol Download -->
+                    <!--tombol Download, setujui dan tidak setujui -->
                     @if($dokumen->url == '')
                     	<td><a href = {{asset($dokumen->template->url)}} class = 'btn btn-primary btn-sm' disabled>Unduh dokumen</a>
                     	<a href = {{route('izin.admin.dokumen.agree',['id'=>$izin->id,'dokumen_id'=>$dokumen->id])}} class = 'btn btn-success btn-sm' disabled>Setujui</a>
@@ -65,7 +65,7 @@
                     	<a href = {{route('izin.admin.dokumen.agree',['id'=>$izin->id,'dokumen_id'=>$dokumen->id])}} class = 'btn btn-success btn-sm'>Setujui</a>
                     	<a href = {{route('izin.admin.dokumen.disagree',['id'=>$izin->id,'dokumen_id'=>$dokumen->id])}} class = 'btn btn-warning btn-sm'>Tidak setujui</a></td>
                     @endif
-                    <!-- end of tombol Download -->
+                    <!-- end of tombol Download, setujui dan tidak setujui-->
                 </tr>
                 @endforeach
 			</table>

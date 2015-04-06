@@ -36,4 +36,13 @@ class Izin extends Model {
             return $current_status->nama;
         }
     }
+
+    public function  getCurrentStatusId(){
+        $current_status = $this->status()->orderBy('timestamp','desc')->first();
+        if ($current_status == null){
+            return '';
+        } else {
+            return $current_status->id;
+        }
+    }
 }

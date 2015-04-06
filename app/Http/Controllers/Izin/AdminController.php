@@ -41,11 +41,11 @@ class AdminController extends Controller {
 
 		$currentStatus = StatusIzin::where('izin_id',$id)->orderBy('timestamp','desc')->first();
 
-		if ($currentStatus == $request->input('status')) {
+		if ($currentStatus != $request->input('status')) {
 			$statusIzin = new StatusIzin;
 			$statusIzin->izin_id = $id;
 			$statusIzin->status_id = $request->input('status');
-			$statusIzin->tanggal = date("Y-m-d");
+			$statusIzin->timestamp = date("Y-m-d");
 			$statusIzin->save();
 		}
 

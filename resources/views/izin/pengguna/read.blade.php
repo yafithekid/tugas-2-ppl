@@ -1,4 +1,6 @@
-<?php use App\Models\Dokumen ?>
+<?php use App\Models\Dokumen;
+	use App\Models\Status;
+	use App\Models\Template; ?>
 @extends('layouts.pengguna');
 
 @section('content')
@@ -39,42 +41,45 @@
 					</tr>
                     <?php $i = 0; ?>
                     @foreach ($izin->dokumens as $dokumen)
-                    <tr>
-                        <td>{{++$i}}</td>
-                        <td>
-                            {{$dokumen->nama}}<br/>
-                            <a href="{{asset($dokumen->template->url)}}">Download template</a>
-                        </td>
-                        <td>
-                    	@if($dokumen->status == DOKUMEN::STATUS_BELUM)
-                    		<span class = 'label label-default'>Belum Diupload</span>
-                    	@elseif($dokumen->status == DOKUMEN::STATUS_PENDING)
-                    		<span class = 'label label-primary'>Sedang Diperiksa</span>
-                    	@elseif($dokumen->status == DOKUMEN::STATUS_OK)
-                    		<span class = 'label label-success'>Sudah diterima</span>
-                    	@elseif($dokumen->status == DOKUMEN::STATUS_BERMASALAH)
-                    		<span class = 'label label-error'>Bermasalah</span>
-                    	@endif
-	                    </td>
-	                    @if($dokumen->url == '')
-	                    	<td>-</td>
-	                    @else
-	                    	<td><a href='{{asset('/'.$dokumen->url)}}' class = 'btn btn-primary btn-sm'>Download</a></td>
-	                    @endif
-                        <td>
-                            <form class="form-inline" action={{route('izin.pengguna.upload_dokumen',['id'=>$izin->id,'template_id'=>$dokumen->template_id])}} method="post" enctype="multipart/form-data">
-                            	<div>
-								    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-								</div>
-                                <div class="form-group">
-                                    <input type="file" name="file" id="fileToUpload"/>
-                                </div>
-                                <div class="form-group">
-                                    <button class='btn btn-primary btn-sm' type="submit">Submit</input>
-                                </div>
-                            </form>
-                        </td>
-                    </tr>
+
+                    @if (($dokumen->template_id != Template::TEMPLATE_SKRD) || ($izin->getCurrentStatusId() == Status::STATUS_PENYERAHAN_SKRD))
+	                    <tr>
+	                        <td>{{++$i}}</td>
+	                        <td>
+	                            {{$dokumen->nama}}<br/>
+	                            <a href="{{asset($dokumen->template->url)}}">Download template</a>
+	                        </td>
+	                        <td>
+	                    	@if($dokumen->status == DOKUMEN::STATUS_BELUM)
+	                    		<span class = 'label label-default'>Belum Diupload</span>
+	                    	@elseif($dokumen->status == DOKUMEN::STATUS_PENDING)
+	                    		<span class = 'label label-primary'>Sedang Diperiksa</span>
+	                    	@elseif($dokumen->status == DOKUMEN::STATUS_OK)
+	                    		<span class = 'label label-success'>Sudah diterima</span>
+	                    	@elseif($dokumen->status == DOKUMEN::STATUS_BERMASALAH)
+	                    		<span class = 'label label-error'>Bermasalah</span>
+	                    	@endif
+		                    </td>
+		                    @if($dokumen->url == '')
+		                    	<td>-</td>
+		                    @else
+		                    	<td><a href='{{asset('/'.$dokumen->url)}}' class = 'btn btn-primary btn-sm'>Download</a></td>
+		                    @endif
+	                        <td>
+	                            <form class="form-inline" action={{route('izin.pengguna.upload_dokumen',['id'=>$izin->id,'template_id'=>$dokumen->template_id])}} method="post" enctype="multipart/form-data">
+	                            	<div>
+									    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+									</div>
+	                                <div class="form-group">
+	                                    <input type="file" name="file" id="fileToUpload"/>
+	                                </div>
+	                                <div class="form-group">
+	                                    <button class='btn btn-primary btn-sm' type="submit">Submit</input>
+	                                </div>
+	                            </form>
+	                        </td>
+	                    </tr>
+                    @endif
                     @endforeach
 				</table>
 			</div>
