@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
 <div class='row'>
-	<div class ='col-xs-8'>
+	<div>
 			<div class="panel panel-primary">
 			  <div class="panel-heading"><h7>Izin</h7></div>
 			  	<table class='table table-hover' style='font-size:12px;'>
@@ -9,7 +9,7 @@
 						<th>No. </th>
 						<th>Nama </th>
 						<th>Jenis </th>
-                        <th>URL </th>
+                        <th>Pemohon</th>
 					</tr>
                     <?php $i = 0; ?>
                     @foreach ($listIzin as $izin)
@@ -22,6 +22,7 @@
                         @endif
                     </td>
                         <td>{{$izin->jenisIzin->nama}}</td>
+                        <td>{{$izin->pengguna->nama}}</td>
                     </tr>
                     @endforeach
 				</table>

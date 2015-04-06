@@ -13,8 +13,9 @@
 
 //Route::get('/', 'WelcomeController@index');
 
-Route::get('/admin',['as'=>'home.admin','uses'=>'WelcomeController@index']);
-Route::get('/',['as'=>'home','uses'=>'HomeController@index']);
+Route::get('/admin',['as'=>'home.admin','uses'=>'Izin\AdminController@getIndex']);
+Route::get('/',['as'=>'home','uses'=>'Izin\PenggunaController@getIndex']);
+Route::get('/landing-page',['as'=>'landing_page','uses','WelcomeController@index']);
 
 
 Route::group(['namespace'=>'Auth'],function(){
@@ -58,6 +59,7 @@ Route::group(['prefix'=>'izin','namespace'=>'Izin'],function(){
         Route::post('/create',['as'=>'izin.template.create.submit','uses'=>'TemplateController@postCreate']);
         Route::get("/{id}/update",['as'=>'izin.template.update','uses'=>"TemplateController@getUpdate"]);
         Route::post('/{id}/update',['as'=>'izin.template.update.submit','uses'=>"TemplateController@postUpdate"]);
+        Route::post('/{id}/upload',['as'=>'izin.template.upload.submit','uses'=>'TemplateController@postUpload']);
     });
 
     //ubah status izin

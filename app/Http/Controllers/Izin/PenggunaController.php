@@ -71,7 +71,7 @@ class PenggunaController extends Controller {
 			}
 		}
 		$izin = Izin::where('id','=',$id)->with('dokumens')->first();
-		$list_status = $izin->status()->orderBy('tanggal','desc')->get();
+		$list_status = $izin->status()->orderBy('timestamp','desc')->get();
 		return view('izin.pengguna.read',['izin'=>$izin,'list_status'=>$list_status]);
 	}
 

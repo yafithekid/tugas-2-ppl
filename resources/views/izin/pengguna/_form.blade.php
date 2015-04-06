@@ -12,6 +12,10 @@
     </select>
 </div>
 
+<div class='form-group'>
+    <input type='submit' value='{{$button}}' class='btn btn-primary'/>
+</div>
+
 {{-- Daftar tabel yang dibutuhkan--}}
 @foreach($list_jenisizin as $jenis_izin)
     <div class='form-group daftar-dokumen' id='daftar-dokumen-{{$jenis_izin->id}}'>
@@ -32,9 +36,7 @@
 
 
 
-<div class='form-group'>
-    <input type='submit' value='{{$button}}' class='btn btn-primary'/>
-</div>
+
 
 @section('scripts')
 @parent

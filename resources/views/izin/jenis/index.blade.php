@@ -10,14 +10,12 @@
     <table class='table'>
         <tr>
             <th>Nama</th>
-            <th>Biaya</th>
             <th>Aksi</th>
         </tr>
 
         @foreach($list_jenis_izin as $jenis_izin)
         <tr>
             <td>{{$jenis_izin->nama}}</td>
-            <td>{{$jenis_izin->biaya}}</td>
             <td>
                 <a href='{{URL::route("izin.jenis.read",["id"=>$jenis_izin->id])}}'><i class='glyphicon glyphicon-eye-open'></i></a>
                 <a href='{{URL::route("izin.jenis.update",["id"=>$jenis_izin->id])}}'><i class='glyphicon glyphicon-pencil'></i></a> 

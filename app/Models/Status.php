@@ -15,6 +15,7 @@ class Status extends Model {
         'nama' => ['required']
     ];
 
+    
     const CANCELLED = 12;
 
 }

@@ -29,7 +29,7 @@ class Izin extends Model {
     }
 
     public function  getCurrentNamaStatus(){
-        $current_status = $this->status()->orderBy('tanggal','desc')->first();
+        $current_status = $this->status()->orderBy('timestamp','desc')->first();
         if ($current_status == null){
             return '';
         } else {

@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Support\Facades\Request;
+use Input;
 
 use App\Models\Template;
 class TemplateController extends Controller {
@@ -42,8 +43,17 @@ class TemplateController extends Controller {
 		return view('izin.template.update',compact('template'));
 	}
 
-	public function postUploadTemplate($id)
+	public function postUpload($id)
 	{
+		$template = Template::findOrFail($id);
+		$file = Input::file('file');
 
+		if ($file !== null){
+			$filePath = public_path().'/uploads/templates/';
+			$file->move($filePath,$id.'.'.$file->getClientOriginalExtension());
+			$template->url = 'uploads/templates/'.$id.'.'.$file->getClientOriginalExtension();
+			$template->save();
+		}
+		return redirect()->route('izin.template.index');
 	}
 }

@@ -25,7 +25,7 @@ class AdminController extends Controller {
 
 	public function getUpdate($id)
 	{
-		$currentStatus = StatusIzin::where('izin_id',$id)->orderBy('tanggal','desc')->first();
+		$currentStatus = StatusIzin::where('izin_id',$id)->orderBy('timestamp','desc')->first();
 		$listStatus = Status::all();
 		$izin = Izin::findOrFail($id);
 		return view('izin.admin.update',compact('currentStatus','listStatus','izin'));
@@ -38,7 +38,7 @@ class AdminController extends Controller {
 		$izin->updated_by_admin = 1;
 		$izin->save();
 
-		$currentStatus = StatusIzin::where('izin_id',$id)->orderBy('tanggal','desc')->first();
+		$currentStatus = StatusIzin::where('izin_id',$id)->orderBy('timestamp','desc')->first();
 
 		if ($currentStatus == $request->input('status')) {
 			$statusIzin = new StatusIzin;

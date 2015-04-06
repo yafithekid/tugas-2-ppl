@@ -12,7 +12,7 @@
         <h3 class='panel-title'>Menu Izin</h3>
     </div>
     <ul class='list-group'>
-        <a href='#'><li class='list-group-item'>Daftar Permohonan Izin</li></a>
+        <a href='{{route('izin.pengguna.index')}}'><li class='list-group-item'>Daftar Permohonan Izin</li></a>
     </ul>
 </div>
 

@@ -9,8 +9,8 @@
     @show
 
     <div class='container'>
-        <div class='col-xs-3'>@include('layouts.sidebar.pengguna')</div>
-        <div class='col-xs-8'>@yield('content')</div>
+        <div class='col-sm-3'>@include('layouts.sidebar.pengguna')</div>
+        <div class='col-sm-9'>@yield('content')</div>
         
     </div>
     

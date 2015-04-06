@@ -94,7 +94,7 @@
 				<div class="panel-body">
 					<ul>
                         @foreach($list_status as $status)
-						<li>{{$status->nama}}</li>
+						<li> {{$status->nama}}</li>
 						@endforeach
 					</ul>
 				</div>
