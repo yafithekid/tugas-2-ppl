@@ -49,3 +49,9 @@
 .notification {
     margin-bottom : 0px;
 }
+
+#landing {
+    background-image: url('../img/angkutan.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
