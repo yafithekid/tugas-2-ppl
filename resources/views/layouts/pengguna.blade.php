@@ -9,8 +9,12 @@
     @show
 
     <div class='container'>
+        @include('layouts.notification')
         <div class='col-sm-3'>@include('layouts.sidebar.pengguna')</div>
-        <div class='col-sm-9'>@yield('content')</div>
+        <div class='col-sm-9'>
+            @include('layouts.notification')
+            @yield('content')
+        </div>
         
     </div>
     

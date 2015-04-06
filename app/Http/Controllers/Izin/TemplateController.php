@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Support\Facades\Request;
 use Input;
+use Session;
 
 use App\Models\Template;
 class TemplateController extends Controller {
@@ -34,6 +35,7 @@ class TemplateController extends Controller {
 		$template = Template::findOrFail($id);
 		$template->nama = Request::input('nama');
 		$template->save();
+		Session::flash('notif-success','Template berhasil diubah');
 		return redirect()->route('izin.template.index');
 	}
 

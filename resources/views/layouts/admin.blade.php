@@ -9,8 +9,12 @@
     @show
 
     <div class='container'>
+
         <div class='col-sm-3'>@include('layouts.sidebar.admin')</div>
-        <div class='col-sm-9'>@yield('content')</div>
+        <div class='col-sm-9'>
+            @include('layouts.notification')<br/>
+            @yield('content')
+        </div>
     </div>
     @section('footer')
         @include('layouts.footer')

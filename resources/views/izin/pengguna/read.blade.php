@@ -41,7 +41,10 @@
                     @foreach ($izin->dokumens as $dokumen)
                     <tr>
                         <td>{{++$i}}</td>
-                        <td>{{$dokumen->nama}}</td>
+                        <td>
+                            {{$dokumen->nama}}<br/>
+                            <a href="{{asset($dokumen->template->url)}}">Download template</a>
+                        </td>
                         <td>
                     	@if($dokumen->status == DOKUMEN::STATUS_BELUM)
                     		<span class = 'label label-default'>Belum Diupload</span>

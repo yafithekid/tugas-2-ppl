@@ -12,4 +12,7 @@ class Dokumen extends Model {
 	protected $table = 'dokumen';
     public $timestamps = false;
 
+    public function template(){
+        return $this->belongsTo('App\Models\Template','template_id','id');
+    }
 }
