@@ -3,7 +3,7 @@
         <h3 class='panel-title'>Menu Izin</h3>
     </div>
     <ul class='list-group'>
-        <a href='{{route('izin.admin.index')}}'><li class='list-group-item'>Daftar Permohonan Izin</li></a>
+        <a href='{{route('izin.admin.index')}}'><li class='list-group-item @if(Route::is('izin.admin.index')) active @endif'>Daftar Permohonan Izin</li></a>
     </ul>
 </div>
 
@@ -21,8 +21,8 @@
         <h3 class='panel-title'>Manajemen</h3>
     </div>
     <ul class='list-group'>
-        <a href='{{route('izin.status.index')}}'><li class='list-group-item'>Status Izin</li></a>
-        <a href='{{route('izin.jenis.index')}}'><li class='list-group-item'>Jenis Izin</li></a>
-        <a href='{{route('izin.template.index')}}'><li class='list-group-item'>Template Izin</li></a>
+        <a href='{{route('izin.status.index')}}'><li class='list-group-item @if(Route::is('izin.status.index')) active @endif'>Status Izin</li></a>
+        <a href='{{route('izin.jenis.index')}}'><li class='list-group-item @if(Route::is('izin.jenis.index')) active @endif'>Jenis Izin</li></a>
+        <a href='{{route('izin.template.index')}}'><li class='list-group-item @if(Route::is('izin.template.index')) active @endif'>Template Izin</li></a>
     </ul>
 </div>

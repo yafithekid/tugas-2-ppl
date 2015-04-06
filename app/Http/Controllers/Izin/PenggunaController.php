@@ -12,6 +12,7 @@ use App\Models\Status;
 use Input;
 use Auth;
 use DB;
+use Carbon\Carbon;
 
 class PenggunaController extends Controller {
 	public function __construct(){
@@ -99,7 +100,7 @@ class PenggunaController extends Controller {
 	{
 		$izin = Izin::findOrFail($id);
 		DB::table('status_izin')
-		->insert(['izin_id'=>$id,'status_id'=>Status::CANCELLED,'tanggal'=>date("Y-m-d")]);
+		->insert(['izin_id'=>$id,'status_id'=>Status::CANCELLED,'timestamp'=>Carbon::now()]);
 		return redirect()->route('izin.pengguna.read',['id'=>$id]);
 	}
 }
