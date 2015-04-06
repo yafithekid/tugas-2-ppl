@@ -41,12 +41,12 @@
                     <td>{{++$i}}</td>
                     <td>
                         {{$dokumen->nama}}<br/>
-                        @if($dokumen->url == '')
-                            Belum diupload
+                        @if ($dokumen->url == null)
+                        Belum upload file
                         @else
-                            <a href='{{asset('/'.$dokumen->url)}}' >Lihat</a>
+                        <a href="{{asset($dokumen->url)}}">Lihat hasil upload</a> 
                         @endif
-                        | 
+                        |
                         <a href="{{asset($dokumen->template->url)}}">Download template</a>
                     </td>
                     <td>

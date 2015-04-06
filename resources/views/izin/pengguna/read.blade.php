@@ -47,6 +47,12 @@
 	                        <td>{{++$i}}</td>
 	                        <td>
 	                            {{$dokumen->nama}}<br/>
+	                            @if ($dokumen->url == null)
+	                            Belum upload file
+	                            @else
+	                            <a href="{{asset($dokumen->url)}}">Lihat hasil upload</a> 
+	                            @endif
+	                            |
 	                            <a href="{{asset($dokumen->template->url)}}">Download template</a>
 	                        </td>
 	                        <td>
@@ -60,11 +66,6 @@
 	                    		<span class = 'label label-error'>Bermasalah</span>
 	                    	@endif
 		                    </td>
-		                    @if($dokumen->url == '')
-		                    	<td>-</td>
-		                    @else
-		                    	<td><a href='{{asset('/'.$dokumen->url)}}' class = 'btn btn-primary btn-sm'>Download</a></td>
-		                    @endif
 	                        <td>
 	                            <form class="form-inline" action={{route('izin.pengguna.upload_dokumen',['id'=>$izin->id,'template_id'=>$dokumen->template_id])}} method="post" enctype="multipart/form-data">
 	                            	<div>
