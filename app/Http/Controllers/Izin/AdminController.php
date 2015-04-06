@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\StatusIzin;
 use App\Models\Status;
 use App\Models\Izin;
+use App\Models\Dokumen;
 
 use Illuminate\Http\Request;
 
@@ -51,5 +52,23 @@ class AdminController extends Controller {
 		return redirect()->route('izin.admin.read',['id'=>$izin->id]);
 	}
 
+	public function getAgreeDokumen($id,$dokumen_id)
+	{
+		$dokumen = Dokumen::findOrFail($dokumen_id);
+		$dokumen->status = Dokumen::STATUS_OK;
+		$dokumen->save();
 
+		$izin = Izin::findOrFail($id);
+		return redirect()->route('izin.admin.read',compact('izin'));
+	}
+
+	public function getDisagreeDokumen($id,$dokumen_id)
+	{
+		$dokumen = Dokumen::findOrFail($dokumen_id);
+		$dokumen->status = Dokumen::STATUS_BERMASALAH;
+		$dokumen->save();
+
+		$izin = Izin::findOrFail($id);
+		return redirect()->route('izin.admin.read',compact('izin'));
+	}
 }

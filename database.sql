@@ -194,7 +194,7 @@ CREATE TABLE IF NOT EXISTS `status_izin` (
 -- Dumping data for table `status_izin`
 --
 
-INSERT INTO `status_izin` (`izin_id`, `status_id`, `tanggal`, `id`) VALUES
+INSERT INTO `status_izin` (`izin_id`, `status_id`, `timestamp`, `id`) VALUES
 (8, 7, '2015-04-05 00:00:00', 1),
 (8, 7, '2015-04-05 01:00:00', 2),
 (8, 8, '2015-04-05 02:00:00', 3);

@@ -84,7 +84,6 @@ class JenisController extends Controller {
 			$jenis_izin->save();
 			return redirect()->route('izin.jenis.index');
 		}
-		
 	}
 
 	public function getRead($id)

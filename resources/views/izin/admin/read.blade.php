@@ -33,13 +33,15 @@
 					<th>No. </th>
 					<th>Nama </th>
 					<th>Status </th>
-					<th>File </th>
+					<th style="text-align:center;">Operasi </th>
 				</tr>
                 <?php $i = 0; ?>
                 @foreach ($izin->dokumens as $dokumen)
                 <tr>
                     <td>{{++$i}}</td>
                     <td>{{$dokumen->nama}}</td>
+
+                    <!--status Dokumen -->
                     <td>
                     	@if($dokumen->status == DOKUMEN::STATUS_BELUM)
                     		<span class = 'label label-default'>Belum Diupload</span>
@@ -48,15 +50,22 @@
                     	@elseif($dokumen->status == DOKUMEN::STATUS_OK)
                     		<span class = 'label label-success'>Sudah diterima</span>
                     	@elseif($dokumen->status == DOKUMEN::STATUS_BERMASALAH)
-                    		<span class = 'label label-error'>Bermasalah</span>
+                    		<span class = 'label label-warning'>Bermasalah</span>
                     	@endif
                     </td>
-                    @if($dokumen->url == '')
-                    	<td>-</td>
-                    @else
-                    	<td><a href = {{'/'.$dokumen->url}} class = 'btn btn-primary btn-sm'>Download</a></td>
-                    @endif
+                    <!-- end of status Dokumen -->
 
+                    <!--tombol Download -->
+                    @if($dokumen->url == '')
+                    	<td><a href = {{asset($dokumen->template->url)}} class = 'btn btn-primary btn-sm' disabled>Unduh dokumen</a>
+                    	<a href = {{route('izin.admin.dokumen.agree',['id'=>$izin->id,'dokumen_id'=>$dokumen->id])}} class = 'btn btn-success btn-sm' disabled>Setujui</a>
+                    	<a href = {{route('izin.admin.dokumen.disagree',['id'=>$izin->id,'dokumen_id'=>$dokumen->id])}} class = 'btn btn-warning btn-sm' disabled>Tidak setujui</a></td>
+                    @else
+                    	<td><a href = {{asset($dokumen->template->url)}} class = 'btn btn-primary btn-sm'>Unduh dokumen</a>
+                    	<a href = {{route('izin.admin.dokumen.agree',['id'=>$izin->id,'dokumen_id'=>$dokumen->id])}} class = 'btn btn-success btn-sm'>Setujui</a>
+                    	<a href = {{route('izin.admin.dokumen.disagree',['id'=>$izin->id,'dokumen_id'=>$dokumen->id])}} class = 'btn btn-warning btn-sm'>Tidak setujui</a></td>
+                    @endif
+                    <!-- end of tombol Download -->
                 </tr>
                 @endforeach
 			</table>
