@@ -37,6 +37,7 @@ class AdminController extends Controller {
 		$izin = Izin::findOrFail($id);
 		$izin->deskripsi = $request->input('deskripsi');
 		$izin->updated_by_admin = 1;
+		$izin->biaya = $request->input('biaya');
 		$izin->save();
 
 		$currentStatus = StatusIzin::where('izin_id',$id)->orderBy('timestamp','desc')->first();

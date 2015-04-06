@@ -25,6 +25,10 @@
         		<textarea name='deskripsi' type='text'class='form-control'>{{$izin->deskripsi}}</textarea>
         	</div>
 
+                <div class='form-group'>
+                        <label>Biaya</label>
+                        <input name='biaya' type='number'class='form-control' value={{$izin->biaya}}></input>
+                </div>
         	<button type='submit' class='btn btn-primary'>Submit</button>
         </form>
 	</div>
