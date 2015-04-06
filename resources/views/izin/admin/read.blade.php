@@ -33,7 +33,7 @@
                 @if ($izin->biaya == '')
                     <p>Akan diberitahukan kemudian</p>
                 @else
-                    <p>{{$izin->biaya}}</p>
+                    <p><span class='currency'>{{$izin->biaya}}</span></p>
                 @endif
             </p>
         </div>
@@ -100,4 +100,14 @@
 </div>
 
 <br>
+@endsection
+
+@section('scripts')
+@parent
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        $('.currency').formatCurrency({region: 'id-ID'});
+    });
+</script>
 @endsection
