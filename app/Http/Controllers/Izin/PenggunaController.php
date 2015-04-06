@@ -51,6 +51,7 @@ class PenggunaController extends Controller {
 		$statusIzin->timestamp = date("Y-m-d H:i:s");
 		$statusIzin->save();
 
+		Session::flash('notif-success',"Izin berhasil diajukan");
 		return redirect()->route('izin.pengguna.read',['id'=>$izin->id]);
 	}
 
@@ -89,17 +90,20 @@ class PenggunaController extends Controller {
 		$dokumen->url = 'uploads/dokumen/'.$id.'/'.$template_id.'.'.$file->getClientOriginalExtension();
 		$dokumen->status = Dokumen::STATUS_PENDING;
 		$dokumen->save();
+
+		Session::flash('notif-success','Dokumen berhasil diunggah');
 		return redirect()->route('izin.pengguna.read',['id'=>$id]);
 
 	}
 
-	
 	public function getCancel($id)
 	{
 		$izin = Izin::findOrFail($id);
 		$izin->updatedByPengguna();
 		DB::table('status_izin')
 		->insert(['izin_id'=>$id,'status_id'=>Status::CANCELLED,'timestamp'=>Carbon::now()]);
+
+		Session::flash('notif-success','Dokumen berhasil dibatalkan');
 		return redirect()->route('izin.pengguna.read',['id'=>$id]);
 	}
 }

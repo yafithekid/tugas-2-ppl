@@ -8,6 +8,7 @@ use App\Models\Izin;
 use App\Models\Dokumen;
 
 use Illuminate\Http\Request;
+use Session;
 
 class AdminController extends Controller {
 
@@ -47,12 +48,13 @@ class AdminController extends Controller {
 		$izin->save();
 		$izin->updatedByAdmin();
 
-		
 		$statusIzin = new StatusIzin;
 		$statusIzin->izin_id = $id;
 		$statusIzin->status_id = $request->input('status');
 		$statusIzin->timestamp = date("Y-m-d H:i:s");
 		$statusIzin->save();
+
+		Session::flash('notif-success','Dokumen berhasil diubah');
 		return redirect()->route('izin.admin.read',['id'=>$izin->id]);
 	}
 
@@ -64,6 +66,9 @@ class AdminController extends Controller {
 
 		$izin = Izin::findOrFail($id);
 		$izin->updatedByAdmin();
+
+		Session::flash('notif-success','Dokumen berhasil di setujui');
+
 		return redirect()->route('izin.admin.read',compact('izin'));
 	}
 
@@ -75,6 +80,8 @@ class AdminController extends Controller {
 
 		$izin = Izin::findOrFail($id);
 		$izin->updatedByAdmin();
+
+		Session::flash('notif-success','Dokumen berhasil ditolak');
 		return redirect()->route('izin.admin.read',compact('izin'));
 	}
 }
