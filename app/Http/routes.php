@@ -29,10 +29,12 @@ Route::group(['prefix'=>'izin','namespace'=>'Izin'],function(){
         Route::get('/create',['as'=>'izin.pengguna.create','uses' => 'PenggunaController@getCreate']);
         Route::post('/create',['as'=>'izin.pengguna.create.submit','uses' => 'PenggunaController@postCreate']);
         Route::get('/{id}/read',['as'=>'izin.pengguna.read','uses'=>'PenggunaController@getRead']);
+        Route::post('/{id}/upload-dokumen',['as'=>'izin.pengguna.upload_dokumen','uses'=>'PenggunaController@postUploadDokumen']);
     });
     //CRUD untuk admin
     Route::group(['prefix'=>'admin'],function(){
         Route::get('/index',['as'=>'izin.admin.index','uses'=>'AdminController@getIndex']);
+        Route::get('/{id}/read',['as'=>'izin.admin.read','uses'=>'AdminController@getRead']);
         Route::get('/{id}/update',['as'=>'izin.admin.update','uses'=>'AdminController@getUpdate']);
         Route::post('/{id}/update',['as'=>'izin.admin.update.submit','uses'=>'AdminController@postUpdate']);
     });

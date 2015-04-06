@@ -20,6 +20,7 @@
 	<div class ='row'>
 		<div class="alert alert-info" role="alert">
             <p>{{$izin->getCurrentNamaStatus()}}</p>
+            <p>{{$izin->deskripsi}}</p>
 		</div>
 	</div><!-- end of Keterangan -->
 
@@ -32,17 +33,15 @@
 					<tr>
 						<th>No. </th>
 						<th>Nama </th>
-						<th>Status </th>
-						<th>Upload </th>
+						<th>Upload</th>
 					</tr>
                     <?php $i = 0; ?>
                     @foreach ($izin->dokumens as $dokumen)
                     <tr>
                         <td>{{++$i}}</td>
                         <td>{{$dokumen->nama}}</td>
-                        <td>{{$dokumen->url}}</td>
                         <td>
-                            <form class="form-inline" action="#" method="post" enctype="multipart/form-data">
+                            <form class="form-inline" action={{route('izin.pengguna.upload_dokumen',['id'=>$izin->id])}} method="post" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <input type="file" name="fileToUpload" id="fileToUpload"/>
                                 </div>

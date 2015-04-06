@@ -11,12 +11,16 @@ use Illuminate\Http\Request;
 class AdminController extends Controller {
 	public function getIndex()
 	{
-		return view('izin.admin.index');
+		$listIzin = Izin::orderBy('tanggal_pengajuan','desc')->orderBy('updated_by_pengguna','desc')->get();
+		return view('izin.admin.index',compact('listIzin'));
 	}
 
 	public function getRead($id)
 	{
-		return view('izin.pengguna.read');
+		$izin = Izin::findOrFail($id);
+		$izin->updated_by_pengguna = 0;
+		$izin->save();
+		return view('izin.admin.read',compact('izin'));
 	}
 
 	public function getUpdate($id)
@@ -31,14 +35,18 @@ class AdminController extends Controller {
 	{
 		$izin = Izin::findOrFail($id);
 		$izin->deskripsi = $request->input('deskripsi');
+		$izin->updated_by_admin = 1;
 		$izin->save();
 
-		$statusIzin = new StatusIzin;
-		$statusIzin->izin_id = $id;
-		$statusIzin->status_id = $request->input('status');
-		$statusIzin->tanggal = date("Y-m-d");
-		$statusIzin->save();
+		$currentStatus = StatusIzin::where('izin_id',$id)->orderBy('tanggal','desc')->first();
 
+		if ($currentStatus == $request->input('status')) {
+			$statusIzin = new StatusIzin;
+			$statusIzin->izin_id = $id;
+			$statusIzin->status_id = $request->input('status');
+			$statusIzin->tanggal = date("Y-m-d");
+			$statusIzin->save();
+		}
 
 		return redirect()->route('izin.admin.read',['id'=>$izin->id]);
 	}

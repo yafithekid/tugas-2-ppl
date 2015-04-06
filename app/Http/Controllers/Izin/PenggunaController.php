@@ -19,7 +19,8 @@ class PenggunaController extends Controller {
 	//daftar izin dari pengguna
 	public function getIndex()
 	{
-		return view('izin.pengguna.index');
+		$listIzin = Izin::where('pengguna_id',Auth::user()->id)->orderBy('tanggal_pengajuan','desc')->orderBy('updated_by_admin','desc')->get();
+		return view('izin.pengguna.index',compact('listIzin'));
 	}
 
 	//bikin izin baru
@@ -37,6 +38,7 @@ class PenggunaController extends Controller {
 		$izin = new Izin();
 		$izin->jenisizin_id = Request::input('jenisizin_id');
 		$izin->pengguna_id = Auth::user()->id;
+		$izin->updated_by_pengguna = 1;
 		$izin->tanggal_pengajuan = date("Y-m-d");
 		$izin->save();
 
@@ -52,6 +54,9 @@ class PenggunaController extends Controller {
 	public function getRead($id)
 	{
 		$izin = Izin::findOrFail($id);
+		$izin->updated_by_admin = 0;
+		$izin->save();
+
 		$templates = $izin->jenisIzin->templates;
 		//generate dokumen
 		foreach ($templates as $template) {
@@ -66,6 +71,11 @@ class PenggunaController extends Controller {
 		$izin = Izin::where('id','=',$id)->with('dokumens')->first();
 		$list_status = $izin->status()->orderBy('tanggal','desc')->get();
 		return view('izin.pengguna.read',['izin'=>$izin,'list_status'=>$list_status]);
+	}
+
+	public function postUploadDokumen($id)
+	{
+		
 	}
 
 }

@@ -5,7 +5,7 @@
 <div class='row'>
 	<div class ='col-xs-6'>
 	  	<div class='form-header'>Update Izin</div>
-        <form action={{"/izin/admin/". $izin->id ."/update"}} method='post'>
+        <form action={{route('izin.admin.update.submit',['id'=>$izin->id])}} method='post'>
 
         	<div>
 			    <input type="hidden" name="_token" value="{{ csrf_token() }}">

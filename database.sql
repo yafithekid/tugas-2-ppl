@@ -8,10 +8,10 @@ USE `tugas_2_ppl`;
 -- version 4.2.11
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Apr 05, 2015 at 11:38 AM
+-- Host: localhost
+-- Generation Time: Apr 06, 2015 at 06:20 AM
 -- Server version: 5.6.21
--- PHP Version: 5.6.3
+-- PHP Version: 5.5.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -50,8 +50,33 @@ CREATE TABLE IF NOT EXISTS `dokumen` (
   `nama` varchar(50) NOT NULL,
   `url` varchar(100) NOT NULL,
   `izin_id` int(11) NOT NULL,
-  `template_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `template_id` int(11) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `dokumen`
+--
+
+INSERT INTO `dokumen` (`id`, `nama`, `url`, `izin_id`, `template_id`, `status`) VALUES
+(1, 'Fotocopy Surat Izin Tempat Usaha (SITU)', '', 1, 3, 1),
+(2, 'Fotocopy KTP Pemohon', '', 1, 4, 1),
+(3, 'Fotokopi NPWP', '', 1, 5, 1),
+(4, 'Surat Permohonan Izin Usaha Angkutan', '', 1, 6, 1),
+(5, 'Surat Izin Usaha Perdagangan', '', 1, 7, 1),
+(6, 'Foto Garasi/Tempat Penyimpanan Kendaraan', '', 1, 8, 1),
+(7, 'Fotocopy SK Izin Trayek', '', 1, 9, 1),
+(8, 'Surat Pernyataan Tidak Melakukan Pengeteman dengan', '', 1, 10, 1),
+(9, 'Surat Pernyataan tidak keberatan dari tetangga.', '', 1, 13, 1),
+(10, 'Fotocopy Surat Izin Tempat Usaha (SITU)', '', 8, 3, 1),
+(11, 'Fotocopy KTP Pemohon', '', 8, 4, 1),
+(12, 'Fotokopi NPWP', '', 8, 5, 1),
+(13, 'Surat Permohonan Izin Usaha Angkutan', '', 8, 6, 1),
+(14, 'Surat Izin Usaha Perdagangan', '', 8, 7, 1),
+(15, 'Foto Garasi/Tempat Penyimpanan Kendaraan', '', 8, 8, 1),
+(16, 'Fotocopy SK Izin Trayek', '', 8, 9, 1),
+(17, 'Surat Pernyataan Tidak Melakukan Pengeteman dengan', '', 8, 10, 1),
+(18, 'Surat Pernyataan tidak keberatan dari tetangga.', '', 8, 13, 1);
 
 -- --------------------------------------------------------
 
@@ -67,8 +92,23 @@ CREATE TABLE IF NOT EXISTS `izin` (
   `pengguna_id` int(11) NOT NULL,
   `jenisizin_id` int(11) NOT NULL,
   `biaya` int(11) DEFAULT NULL,
-  `is_updated` tinyint(4) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `updated_by_pengguna` tinyint(4) NOT NULL DEFAULT '0',
+  `updated_by_admin` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `izin`
+--
+
+INSERT INTO `izin` (`id`, `tanggal_pengajuan`, `deskripsi`, `status_pembayaran`, `pengguna_id`, `jenisizin_id`, `biaya`, `updated_by_pengguna`, `updated_by_admin`) VALUES
+(1, '2015-04-05', NULL, 0, 2, 5, NULL, 0, 0),
+(2, '2015-04-05', NULL, 0, 2, 5, NULL, 0, 0),
+(3, '2015-04-05', NULL, 0, 2, 5, NULL, 0, 0),
+(4, '2015-04-05', NULL, 0, 2, 5, NULL, 0, 0),
+(5, '2015-04-05', NULL, 0, 2, 5, NULL, 1, 0),
+(6, '2015-04-05', NULL, 0, 2, 5, NULL, 0, 0),
+(7, '2015-04-05', NULL, 0, 2, 5, NULL, 0, 0),
+(8, '2015-04-05', 'Persiapkan diri anda', 0, 2, 5, NULL, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -146,8 +186,18 @@ INSERT INTO `status` (`id`, `nama`, `keterangan`) VALUES
 CREATE TABLE IF NOT EXISTS `status_izin` (
   `izin_id` int(11) NOT NULL,
   `status_id` int(11) NOT NULL,
-  `tanggal` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `tanggal` date NOT NULL,
+`id` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `status_izin`
+--
+
+INSERT INTO `status_izin` (`izin_id`, `status_id`, `tanggal`, `id`) VALUES
+(8, 7, '2015-04-05', 1),
+(8, 7, '2015-04-05', 2),
+(8, 8, '2015-04-05', 3);
 
 -- --------------------------------------------------------
 
@@ -280,7 +330,7 @@ ALTER TABLE `status`
 -- Indexes for table `status_izin`
 --
 ALTER TABLE `status_izin`
- ADD PRIMARY KEY (`izin_id`,`status_id`), ADD KEY `status_id` (`status_id`);
+ ADD PRIMARY KEY (`izin_id`,`status_id`,`id`), ADD UNIQUE KEY `id` (`id`), ADD KEY `status_id` (`status_id`);
 
 --
 -- Indexes for table `template`
@@ -319,12 +369,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `dokumen`
 --
 ALTER TABLE `dokumen`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `izin`
 --
 ALTER TABLE `izin`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `jenisizin`
 --
@@ -340,6 +390,11 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 ALTER TABLE `status`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT for table `status_izin`
+--
+ALTER TABLE `status_izin`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `template`
 --
