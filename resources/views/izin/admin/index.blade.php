@@ -2,6 +2,9 @@
 @section('content')
 <div class='row'>
 	<div>
+        @if (count($listIzin) == 0)
+            <i>Daftar izin kosong</i><br/><br/>
+        @endif
 			<div class="panel panel-primary">
 			  <div class="panel-heading"><h7>Izin</h7></div>
 			  	<table class='table table-hover' style='font-size:12px;'>
@@ -27,6 +30,7 @@
                     @endforeach
 				</table>
 			</div>
+
 		</div>
 </div>
 @endsection

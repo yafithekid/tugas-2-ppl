@@ -1,3 +1,4 @@
+
 <div class='sidebar panel panel-info'>
     <div class='panel-heading'>
         <h3 class='panel-title'>Profil</h3>
@@ -12,7 +13,7 @@
         <h3 class='panel-title'>Menu Izin</h3>
     </div>
     <ul class='list-group'>
-        <a href='{{route('izin.pengguna.index')}}'><li class='list-group-item'>Daftar Permohonan Izin</li></a>
+        <a href='{{route('izin.pengguna.index')}}'><li class='list-group-item @if(Route::is('izin.pengguna.index')) active @endif'>Daftar Permohonan Izin</li></a>
     </ul>
 </div>
 
@@ -21,6 +22,6 @@
         <h3 class='panel-title'>Menu Trayek</h3>
     </div>
     <ul class='list-group'>
-        <a href='#'><li class='list-group-item'>Rekomendasi Trayek</li></a>
+        <a href='#'><li class='list-group-item'> Rekomendasi Trayek</li></a>
     </ul>
 </div>

@@ -10,6 +10,9 @@
             <option value='{{$jenisizin->id}}'>{{$jenisizin->nama}}</option>
         @endforeach
     </select>
+    @if ($errors!==null)
+        <span style='color:red'>{{$errors->first('jenisizin_id')}}</span>
+    @endif
 </div>
 
 <div class='form-group'>

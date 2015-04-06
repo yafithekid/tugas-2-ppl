@@ -50,8 +50,8 @@
     margin-bottom : 0px;
 }
 
-#landing {
-    background-image: url('../img/angkutan.png');
-    background-repeat: no-repeat;
-    background-size: 100%;
+
+.sidebar .list-group-item.active {
+    background-color: #e6e9ed;
+    color: black;
 }
