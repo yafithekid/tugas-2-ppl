@@ -13,6 +13,7 @@ use Input;
 use Auth;
 use DB;
 use Session;
+use Validator;
 use Carbon\Carbon;
 
 class PenggunaController extends Controller {
@@ -44,16 +45,24 @@ class PenggunaController extends Controller {
 		$izin->pengguna_id = Auth::user()->id;
 		$izin->updated_by_pengguna = 1;
 		$izin->tanggal_pengajuan = date("Y-m-d");
-		$izin->save();
+		$validator = Validator::make(Request::all(),Izin::$rules);
+		if (!$validator->fails()){
+			$izin->save();
 
-		$statusIzin = new StatusIzin;
-		$statusIzin->izin_id = $izin->id;
-		$statusIzin->status_id = Status::STATUS_MELENGKAPI_DOKUMEN;
-		$statusIzin->timestamp = date("Y-m-d H:i:s");
-		$statusIzin->save();
+			$statusIzin = new StatusIzin;
+			$statusIzin->izin_id = $izin->id;
+			$statusIzin->status_id = Status::STATUS_MELENGKAPI_DOKUMEN;
+			$statusIzin->timestamp = date("Y-m-d H:i:s");
+			$statusIzin->save();
 
-		Session::flash('notif-success',"Izin berhasil diajukan");
-		return redirect()->route('izin.pengguna.read',['id'=>$izin->id]);
+			Session::flash('notif-success',"Izin berhasil diajukan");
+			return redirect()->route('izin.pengguna.read',['id'=>$izin->id]);
+		} else {
+			$list_jenisizin = JenisIzin::with('templates')->get();
+			$errors = $validator->errors();
+			return view('izin.pengguna.create',compact('list_jenisizin','izin','errors'));
+		}
+		
 	}
 
 	public function getRead($id)

@@ -10,6 +10,7 @@ class Izin extends Model {
 
     public $timestamps = false;
     public static $rules = [
+        'jenisizin_id' => ['required']
     ];
 
     public function pengguna(){
