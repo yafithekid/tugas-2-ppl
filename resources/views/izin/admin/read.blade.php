@@ -2,7 +2,7 @@
 @extends('layouts.admin')
 @section('content')
 <div class ='row'>
-	<h3>Detail Izin: {{$izin->jenisIzin->nama}}</h3>
+	<h3 style='margin-top:5px;'>Detail Izin: {{$izin->jenisIzin->nama}}</h3>
 </div>
 
 <!-- Pemohon -->
@@ -16,12 +16,28 @@
 </div><!-- end of Pemohon -->
 
 <!-- Keterangan -->
-<div class ='row'>
-	<div class="alert alert-info" role="alert">
-        <p>{{$izin->getCurrentNamaStatus()}}</p>
-        <p>{{$izin->deskripsi}}</p>
-	</div>
-</div><!-- end of Keterangan -->
+    <div class ='row' style='margin-top:10px;'>
+        <div>
+            <b>Status</b><br/>
+                <p>{{$izin->getCurrentNamaStatus()}}</p>
+
+            <b>Keterangan</b><br/>
+                @if ($izin->deskripsi == '')
+                    <p>---</p>
+                @else
+                    <p>{{$izin->deskripsi}}</p>
+                @endif
+
+            <b>Biaya</b><br/>
+            <p>
+                @if ($izin->biaya == '')
+                    <p>Akan diberitahukan kemudian</p>
+                @else
+                    <p><span class='currency'>{{$izin->biaya}}</span></p>
+                @endif
+            </p>
+        </div>
+    </div><!-- end of Keterangan -->
 
 <!-- Tabel Dokumen -->
 <div class='row'>
@@ -33,13 +49,22 @@
 					<th>No. </th>
 					<th>Nama </th>
 					<th>Status </th>
-					<th>File </th>
+					<th style="text-align:center;">Operasi </th>
 				</tr>
                 <?php $i = 0; ?>
                 @foreach ($izin->dokumens as $dokumen)
                 <tr>
                     <td>{{++$i}}</td>
-                    <td>{{$dokumen->nama}}</td>
+                    <td>
+                        {{$dokumen->nama}}<br/>
+                        @if ($dokumen->url == null)
+                        Belum upload file
+                        @else
+                        <a href="{{asset($dokumen->url)}}">Lihat hasil upload</a> 
+                        @endif
+                        |
+                        <a href="{{asset($dokumen->template->url)}}">Download template</a>
+                    </td>
                     <td>
                     	@if($dokumen->status == DOKUMEN::STATUS_BELUM)
                     		<span class = 'label label-default'>Belum Diupload</span>
@@ -48,14 +73,20 @@
                     	@elseif($dokumen->status == DOKUMEN::STATUS_OK)
                     		<span class = 'label label-success'>Sudah diterima</span>
                     	@elseif($dokumen->status == DOKUMEN::STATUS_BERMASALAH)
-                    		<span class = 'label label-error'>Bermasalah</span>
+                    		<span class = 'label label-warning'>Bermasalah</span>
                     	@endif
                     </td>
+                    <!-- end of status Dokumen -->
+
+                    <!--tombol Download, setujui dan tidak setujui -->
                     @if($dokumen->url == '')
-                    	<td>-</td>
+                    	<td><a href = {{route('izin.admin.dokumen.agree',['id'=>$izin->id,'dokumen_id'=>$dokumen->id])}} class = 'btn btn-success btn-sm' disabled>Setujui</a>
+                    	<a href = {{route('izin.admin.dokumen.disagree',['id'=>$izin->id,'dokumen_id'=>$dokumen->id])}} class = 'btn btn-warning btn-sm' disabled>Tidak setujui</a></td>
                     @else
-                    	<td><a href = {{'/'.$dokumen->url}} class = 'btn btn-primary btn-sm'>Download</a></td>
+                    	<td><a href = {{route('izin.admin.dokumen.agree',['id'=>$izin->id,'dokumen_id'=>$dokumen->id])}} class = 'btn btn-success btn-sm'>Setujui</a>
+                    	<a href = {{route('izin.admin.dokumen.disagree',['id'=>$izin->id,'dokumen_id'=>$dokumen->id])}} class = 'btn btn-warning btn-sm'>Tidak setujui</a></td>
                     @endif
+                    <!-- end of tombol Download, setujui dan tidak setujui-->
 
                 </tr>
                 @endforeach
@@ -69,4 +100,14 @@
 </div>
 
 <br>
+@endsection
+
+@section('scripts')
+@parent
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        $('.currency').formatCurrency({region: 'id-ID'});
+    });
+</script>
 @endsection

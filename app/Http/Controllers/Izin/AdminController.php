@@ -5,10 +5,18 @@ use App\Http\Controllers\Controller;
 use App\Models\StatusIzin;
 use App\Models\Status;
 use App\Models\Izin;
+use App\Models\Dokumen;
 
 use Illuminate\Http\Request;
+use Session;
 
 class AdminController extends Controller {
+
+	public function __construct()
+	{
+		$this->middleware('auth');
+	}
+
 	public function getIndex()
 	{
 		$listIzin = Izin::orderBy('tanggal_pengajuan','desc')->orderBy('updated_by_pengguna','desc')->get();
@@ -18,8 +26,7 @@ class AdminController extends Controller {
 	public function getRead($id)
 	{
 		$izin = Izin::findOrFail($id);
-		$izin->updated_by_pengguna = 0;
-		$izin->save();
+		$izin->readedByAdmin();
 		return view('izin.admin.read',compact('izin'));
 	}
 
@@ -28,6 +35,7 @@ class AdminController extends Controller {
 		$currentStatus = StatusIzin::where('izin_id',$id)->orderBy('timestamp','desc')->first();
 		$listStatus = Status::all();
 		$izin = Izin::findOrFail($id);
+		$izin->readedByAdmin();
 		return view('izin.admin.update',compact('currentStatus','listStatus','izin'));
 	}
 
@@ -36,20 +44,44 @@ class AdminController extends Controller {
 		$izin = Izin::findOrFail($id);
 		$izin->deskripsi = $request->input('deskripsi');
 		$izin->updated_by_admin = 1;
+		$izin->biaya = $request->input('biaya');
 		$izin->save();
+		$izin->updatedByAdmin();
 
-		$currentStatus = StatusIzin::where('izin_id',$id)->orderBy('timestamp','desc')->first();
+		$statusIzin = new StatusIzin;
+		$statusIzin->izin_id = $id;
+		$statusIzin->status_id = $request->input('status');
+		$statusIzin->timestamp = date("Y-m-d H:i:s");
+		$statusIzin->save();
 
-		if ($currentStatus == $request->input('status')) {
-			$statusIzin = new StatusIzin;
-			$statusIzin->izin_id = $id;
-			$statusIzin->status_id = $request->input('status');
-			$statusIzin->tanggal = date("Y-m-d");
-			$statusIzin->save();
-		}
-
+		Session::flash('notif-success','Dokumen berhasil diubah');
 		return redirect()->route('izin.admin.read',['id'=>$izin->id]);
 	}
 
+	public function getAgreeDokumen($id,$dokumen_id)
+	{
+		$dokumen = Dokumen::findOrFail($dokumen_id);
+		$dokumen->status = Dokumen::STATUS_OK;
+		$dokumen->save();
 
+		$izin = Izin::findOrFail($id);
+		$izin->updatedByAdmin();
+
+		Session::flash('notif-success','Dokumen berhasil di setujui');
+
+		return redirect()->route('izin.admin.read',compact('izin'));
+	}
+
+	public function getDisagreeDokumen($id,$dokumen_id)
+	{
+		$dokumen = Dokumen::findOrFail($dokumen_id);
+		$dokumen->status = Dokumen::STATUS_BERMASALAH;
+		$dokumen->save();
+
+		$izin = Izin::findOrFail($id);
+		$izin->updatedByAdmin();
+
+		Session::flash('notif-success','Dokumen berhasil ditolak');
+		return redirect()->route('izin.admin.read',compact('izin'));
+	}
 }

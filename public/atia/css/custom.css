@@ -49,3 +49,9 @@
 .notification {
     margin-bottom : 0px;
 }
+
+
+.sidebar .list-group-item.active {
+    background-color: #e6e9ed;
+    color: black;
+}

@@ -12,6 +12,9 @@ use App\Models\Status;
 use Input;
 use Auth;
 use DB;
+use Session;
+use Validator;
+use Carbon\Carbon;
 
 class PenggunaController extends Controller {
 	public function __construct(){
@@ -42,22 +45,30 @@ class PenggunaController extends Controller {
 		$izin->pengguna_id = Auth::user()->id;
 		$izin->updated_by_pengguna = 1;
 		$izin->tanggal_pengajuan = date("Y-m-d");
-		$izin->save();
+		$validator = Validator::make(Request::all(),Izin::$rules);
+		if (!$validator->fails()){
+			$izin->save();
 
-		$statusIzin = new StatusIzin;
-		$statusIzin->izin_id = $izin->id;
-		$statusIzin->status_id = Status::STATUS_MELENGKAPI_DOKUMEN;
-		$statusIzin->tanggal = date("Y-m-d");
-		$statusIzin->save();
+			$statusIzin = new StatusIzin;
+			$statusIzin->izin_id = $izin->id;
+			$statusIzin->status_id = Status::STATUS_MELENGKAPI_DOKUMEN;
+			$statusIzin->timestamp = date("Y-m-d H:i:s");
+			$statusIzin->save();
 
-		return redirect()->route('izin.pengguna.read',['id'=>$izin->id]);
+			Session::flash('notif-success',"Izin berhasil diajukan");
+			return redirect()->route('izin.pengguna.read',['id'=>$izin->id]);
+		} else {
+			$list_jenisizin = JenisIzin::with('templates')->get();
+			$errors = $validator->errors();
+			return view('izin.pengguna.create',compact('list_jenisizin','izin','errors'));
+		}
+		
 	}
 
 	public function getRead($id)
 	{
 		$izin = Izin::findOrFail($id);
-		$izin->updated_by_admin = 0;
-		$izin->save();
+		$izin->readedByPengguna();
 
 		$templates = $izin->jenisIzin->templates;
 		//generate dokumen
@@ -79,8 +90,7 @@ class PenggunaController extends Controller {
 	{
 
 		$izin = Izin::findOrFail($id);
-		$izin->updated_by_pengguna = 1;
-		$izin->save();
+		$izin->updatedByPengguna();
 
 		$filePath = public_path().'/uploads/dokumen/'.$id.'/';
 		$file = Input::file('file');
@@ -90,16 +100,20 @@ class PenggunaController extends Controller {
 		$dokumen->url = 'uploads/dokumen/'.$id.'/'.$template_id.'.'.$file->getClientOriginalExtension();
 		$dokumen->status = Dokumen::STATUS_PENDING;
 		$dokumen->save();
+
+		Session::flash('notif-success','Dokumen berhasil diunggah');
 		return redirect()->route('izin.pengguna.read',['id'=>$id]);
 
 	}
 
-	
 	public function getCancel($id)
 	{
 		$izin = Izin::findOrFail($id);
+		$izin->updatedByPengguna();
 		DB::table('status_izin')
-		->insert(['izin_id'=>$id,'status_id'=>Status::CANCELLED,'tanggal'=>date("Y-m-d")]);
+		->insert(['izin_id'=>$id,'status_id'=>Status::CANCELLED,'timestamp'=>Carbon::now()]);
+
+		Session::flash('notif-success','Dokumen berhasil dibatalkan');
 		return redirect()->route('izin.pengguna.read',['id'=>$id]);
 	}
 }

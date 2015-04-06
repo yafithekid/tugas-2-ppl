@@ -15,7 +15,7 @@
 
 Route::get('/admin',['as'=>'home.admin','uses'=>'Izin\AdminController@getIndex']);
 Route::get('/',['as'=>'home','uses'=>'Izin\PenggunaController@getIndex']);
-Route::get('/landing-page',['as'=>'landing_page','uses','WelcomeController@index']);
+Route::get('/landing-page',['as'=>'landing_page','uses'=>'HomeController@index']);
 
 
 Route::group(['namespace'=>'Auth'],function(){
@@ -39,6 +39,8 @@ Route::group(['prefix'=>'izin','namespace'=>'Izin'],function(){
         Route::get('/{id}/read',['as'=>'izin.admin.read','uses'=>'AdminController@getRead']);
         Route::get('/{id}/update',['as'=>'izin.admin.update','uses'=>'AdminController@getUpdate']);
         Route::post('/{id}/update',['as'=>'izin.admin.update.submit','uses'=>'AdminController@postUpdate']);
+        Route::get('/{id}/dokumen/{dokumen_id}/agree',['as'=>'izin.admin.dokumen.agree','uses'=>'AdminController@getAgreeDokumen']);
+        Route::get('/{id}/dokumen/{dokumen_id}/disagree',['as'=>'izin.admin.dokumen.disagree','uses'=>'AdminController@getDisagreeDokumen']);
     });
     //ubah jenis izin
     Route::group(['prefix'=>'jenis'],function(){

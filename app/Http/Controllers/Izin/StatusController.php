@@ -72,7 +72,6 @@ class StatusController extends Controller {
 			$status->save();
 			return redirect()->route('izin.status.index');
 		}
-		
 	}
 
 	public function getRead($id)
