@@ -113,7 +113,7 @@ class PenggunaController extends Controller {
 		DB::table('status_izin')
 		->insert(['izin_id'=>$id,'status_id'=>Status::CANCELLED,'timestamp'=>Carbon::now()]);
 
-		Session::flash('notif-success','Dokumen berhasil dibatalkan');
+		Session::flash('notif-success','Izin berhasil dibatalkan');
 		return redirect()->route('izin.pengguna.read',['id'=>$id]);
 	}
 }
