@@ -12,6 +12,7 @@ use App\Models\Status;
 use Input;
 use Auth;
 use DB;
+use Session;
 use Carbon\Carbon;
 
 class PenggunaController extends Controller {
