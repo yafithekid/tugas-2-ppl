@@ -9,6 +9,7 @@ use App\Models\JenisIzin;
 use App\Models\Dokumen;
 use App\Models\StatusIzin;
 use App\Models\Status;
+use Input;
 use Auth;
 
 class PenggunaController extends Controller {
@@ -73,9 +74,23 @@ class PenggunaController extends Controller {
 		return view('izin.pengguna.read',['izin'=>$izin,'list_status'=>$list_status]);
 	}
 
-	public function postUploadDokumen($id)
+	public function postUploadDokumen($id,$template_id)
 	{
-		
+
+		$izin = Izin::findOrFail($id);
+		$izin->updated_by_pengguna = 1;
+		$izin->save();
+
+		$filePath = public_path().'/uploads/dokumen/'.$id.'/';
+		$file = Input::file('file');
+		$file->move($filePath,$template_id.'.'.$file->getClientOriginalExtension());
+
+		$dokumen = Dokumen::where('izin_id',$id)->where('template_id',$template_id)->first();
+		$dokumen->url = 'uploads/dokumen/'.$id.'/'.$template_id.'.'.$file->getClientOriginalExtension();
+		$dokumen->status = Dokumen::STATUS_PENDING;
+		$dokumen->save();
+		return redirect()->route('izin.pengguna.read',['id'=>$id]);
+
 	}
 
 }

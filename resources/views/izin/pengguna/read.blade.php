@@ -1,7 +1,7 @@
+<?php use App\Models\Dokumen ?>
 @extends('layouts.pengguna');
 
 @section('content')
-
 	<div class ='row'>
 		<h3>Detail Izin: {{$izin->jenisIzin->nama}}</h3>
 	</div>
@@ -33,6 +33,8 @@
 					<tr>
 						<th>No. </th>
 						<th>Nama </th>
+						<th>Status</th>
+						<th>URL</th>
 						<th>Upload</th>
 					</tr>
                     <?php $i = 0; ?>
@@ -41,9 +43,28 @@
                         <td>{{++$i}}</td>
                         <td>{{$dokumen->nama}}</td>
                         <td>
-                            <form class="form-inline" action={{route('izin.pengguna.upload_dokumen',['id'=>$izin->id])}} method="post" enctype="multipart/form-data">
+                    	@if($dokumen->status == DOKUMEN::STATUS_BELUM)
+                    		<span class = 'label label-default'>Belum Diupload</span>
+                    	@elseif($dokumen->status == DOKUMEN::STATUS_PENDING)
+                    		<span class = 'label label-primary'>Sedang Diperiksa</span>
+                    	@elseif($dokumen->status == DOKUMEN::STATUS_OK)
+                    		<span class = 'label label-success'>Sudah diterima</span>
+                    	@elseif($dokumen->status == DOKUMEN::STATUS_BERMASALAH)
+                    		<span class = 'label label-error'>Bermasalah</span>
+                    	@endif
+	                    </td>
+	                    @if($dokumen->url == '')
+	                    	<td>-</td>
+	                    @else
+	                    	<td><a href = {{'/'.$dokumen->url}} class = 'btn btn-primary btn-sm'>Download</a></td>
+	                    @endif
+                        <td>
+                            <form class="form-inline" action={{route('izin.pengguna.upload_dokumen',['id'=>$izin->id,'template_id'=>$dokumen->template_id])}} method="post" enctype="multipart/form-data">
+                            	<div>
+								    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+								</div>
                                 <div class="form-group">
-                                    <input type="file" name="fileToUpload" id="fileToUpload"/>
+                                    <input type="file" name="file" id="fileToUpload"/>
                                 </div>
                                 <div class="form-group">
                                     <button class='btn btn-primary btn-sm' type="submit">Submit</input>

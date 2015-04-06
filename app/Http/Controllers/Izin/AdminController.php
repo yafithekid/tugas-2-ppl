@@ -51,4 +51,5 @@ class AdminController extends Controller {
 		return redirect()->route('izin.admin.read',['id'=>$izin->id]);
 	}
 
+
 }

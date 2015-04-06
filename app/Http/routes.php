@@ -29,7 +29,7 @@ Route::group(['prefix'=>'izin','namespace'=>'Izin'],function(){
         Route::get('/create',['as'=>'izin.pengguna.create','uses' => 'PenggunaController@getCreate']);
         Route::post('/create',['as'=>'izin.pengguna.create.submit','uses' => 'PenggunaController@postCreate']);
         Route::get('/{id}/read',['as'=>'izin.pengguna.read','uses'=>'PenggunaController@getRead']);
-        Route::post('/{id}/upload-dokumen',['as'=>'izin.pengguna.upload_dokumen','uses'=>'PenggunaController@postUploadDokumen']);
+        Route::post('/{id}/upload-dokumen/{template_id}',['as'=>'izin.pengguna.upload_dokumen','uses'=>'PenggunaController@postUploadDokumen']);
     });
     //CRUD untuk admin
     Route::group(['prefix'=>'admin'],function(){

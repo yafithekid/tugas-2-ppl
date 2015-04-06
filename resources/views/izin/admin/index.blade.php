@@ -9,6 +9,7 @@
 						<th>No. </th>
 						<th>Nama </th>
 						<th>Jenis </th>
+                        <th>URL </th>
 					</tr>
                     <?php $i = 0; ?>
                     @foreach ($listIzin as $izin)

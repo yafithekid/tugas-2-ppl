@@ -4,9 +4,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Dokumen extends Model {
 
-	const STATUS_PENDING = 1;
-	const STATUS_OK = 2;
-	const STATUS_BERMASALAH = 3;
+	const STATUS_BELUM = 1;
+	const STATUS_PENDING = 2;
+	const STATUS_OK = 3;
+	const STATUS_BERMASALAH = 4;
 
 	protected $table = 'dokumen';
     public $timestamps = false;

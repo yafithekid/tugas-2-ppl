@@ -8,8 +8,8 @@
         <form action={{route('izin.admin.update.submit',['id'=>$izin->id])}} method='post'>
 
         	<div>
-			    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-			</div>
+		    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+		</div>
 
         	<div class='form-group'>
         		<label>Status</label>
