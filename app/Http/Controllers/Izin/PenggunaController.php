@@ -10,6 +10,7 @@ use App\Models\Dokumen;
 use App\Models\StatusIzin;
 use App\Models\Status;
 use Auth;
+use DB;
 
 class PenggunaController extends Controller {
 	public function __construct(){
@@ -78,4 +79,12 @@ class PenggunaController extends Controller {
 		
 	}
 
+	
+	public function getCancel($id)
+	{
+		$izin = Izin::findOrFail($id);
+		DB::table('status_izin')
+		->insert(['izin_id'=>$id,'status_id'=>Status::CANCELLED,'tanggal'=>date("Y-m-d")]);
+		return redirect()->route('izin.pengguna.read',['id'=>$id]);
+	}
 }
