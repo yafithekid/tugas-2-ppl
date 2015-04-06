@@ -1,5 +1,5 @@
 <?php use App\Models\Dokumen ?>
-@extends('layouts.pengguna');
+@extends('layouts.pengguna')
 
 @section('content')
 	<div class ='row'>
@@ -34,7 +34,6 @@
 						<th>No. </th>
 						<th>Nama </th>
 						<th>Status</th>
-						<th>URL</th>
 						<th>Upload</th>
 					</tr>
                     <?php $i = 0; ?>
@@ -43,6 +42,12 @@
                         <td>{{++$i}}</td>
                         <td>
                             {{$dokumen->nama}}<br/>
+                            @if($dokumen->url == '')
+                                Belum diupload
+                            @else
+                                <a href='{{asset('/'.$dokumen->url)}}' >Lihat</a>
+                            @endif
+                            | 
                             <a href="{{asset($dokumen->template->url)}}">Download template</a>
                         </td>
                         <td>
@@ -56,11 +61,7 @@
                     		<span class = 'label label-error'>Bermasalah</span>
                     	@endif
 	                    </td>
-	                    @if($dokumen->url == '')
-	                    	<td>-</td>
-	                    @else
-	                    	<td><a href='{{asset('/'.$dokumen->url)}}' class = 'btn btn-primary btn-sm'>Download</a></td>
-	                    @endif
+	                    
                         <td>
                             <form class="form-inline" action={{route('izin.pengguna.upload_dokumen',['id'=>$izin->id,'template_id'=>$dokumen->template_id])}} method="post" enctype="multipart/form-data">
                             	<div>
@@ -70,7 +71,7 @@
                                     <input type="file" name="file" id="fileToUpload"/>
                                 </div>
                                 <div class="form-group">
-                                    <button class='btn btn-primary btn-sm' type="submit">Submit</input>
+                                    <button class='btn btn-primary btn-sm' type="submit">Upload</input>
                                 </div>
                             </form>
                         </td>

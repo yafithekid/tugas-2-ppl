@@ -33,13 +33,21 @@
 					<th>No. </th>
 					<th>Nama </th>
 					<th>Status </th>
-					<th>File </th>
 				</tr>
                 <?php $i = 0; ?>
                 @foreach ($izin->dokumens as $dokumen)
                 <tr>
                     <td>{{++$i}}</td>
-                    <td>{{$dokumen->nama}}</td>
+                    <td>
+                        {{$dokumen->nama}}<br/>
+                        @if($dokumen->url == '')
+                            Belum diupload
+                        @else
+                            <a href='{{asset('/'.$dokumen->url)}}' >Lihat</a>
+                        @endif
+                        | 
+                        <a href="{{asset($dokumen->template->url)}}">Download template</a>
+                    </td>
                     <td>
                     	@if($dokumen->status == DOKUMEN::STATUS_BELUM)
                     		<span class = 'label label-default'>Belum Diupload</span>
@@ -51,11 +59,6 @@
                     		<span class = 'label label-error'>Bermasalah</span>
                     	@endif
                     </td>
-                    @if($dokumen->url == '')
-                    	<td>-</td>
-                    @else
-                    	<td><a href = {{'/'.$dokumen->url}} class = 'btn btn-primary btn-sm'>Download</a></td>
-                    @endif
 
                 </tr>
                 @endforeach

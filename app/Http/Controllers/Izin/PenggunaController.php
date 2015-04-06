@@ -47,7 +47,7 @@ class PenggunaController extends Controller {
 		$statusIzin = new StatusIzin;
 		$statusIzin->izin_id = $izin->id;
 		$statusIzin->status_id = Status::STATUS_MELENGKAPI_DOKUMEN;
-		$statusIzin->tanggal = date("Y-m-d");
+		$statusIzin->timestamp = date("Y-m-d H:i:s");
 		$statusIzin->save();
 
 		return redirect()->route('izin.pengguna.read',['id'=>$izin->id]);
