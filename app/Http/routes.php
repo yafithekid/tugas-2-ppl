@@ -30,6 +30,7 @@ Route::group(['prefix'=>'izin','namespace'=>'Izin'],function(){
         Route::post('/create',['as'=>'izin.pengguna.create.submit','uses' => 'PenggunaController@postCreate']);
         Route::get('/{id}/read',['as'=>'izin.pengguna.read','uses'=>'PenggunaController@getRead']);
         Route::post('/{id}/upload-dokumen/{template_id}',['as'=>'izin.pengguna.upload_dokumen','uses'=>'PenggunaController@postUploadDokumen']);
+        Route::get('/{id}/cancel',['as'=>'izin.pengguna.cancel','uses'=>'PenggunaController@getCancel']);
     });
     //CRUD untuk admin
     Route::group(['prefix'=>'admin'],function(){
@@ -53,6 +54,10 @@ Route::group(['prefix'=>'izin','namespace'=>'Izin'],function(){
 
     Route::group(['prefix'=>'template'],function(){
         Route::get('/index',['as'=>'izin.template.index','uses'=>'TemplateController@getIndex']);
+        Route::get('/create',['as'=>'izin.template.create','uses'=>'TemplateController@getCreate']);
+        Route::post('/create',['as'=>'izin.template.create.submit','uses'=>'TemplateController@postCreate']);
+        Route::get("/{id}/update",['as'=>'izin.template.update','uses'=>"TemplateController@getUpdate"]);
+        Route::post('/{id}/update',['as'=>'izin.template.update.submit','uses'=>"TemplateController@postUpdate"]);
     });
 
     //ubah status izin

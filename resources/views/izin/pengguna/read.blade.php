@@ -79,7 +79,7 @@
 	<div><!-- end Tabel Dokumen -->
 
 	<div class='row'>
-		<a href='#' class="btn btn-primary">Batalkan Izin</a>
+		<a href='{{route("izin.pengguna.cancel",['id'=>$izin->id])}}' class="btn btn-primary">Batalkan Izin</a>
 	</div>
 
 	<br>
@@ -94,7 +94,7 @@
 				<div class="panel-body">
 					<ul>
                         @foreach($list_status as $status)
-						<li>27-12-12 Dokumen diterima</li>
+						<li>{{$status->nama}}</li>
 						@endforeach
 					</ul>
 				</div>
