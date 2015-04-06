@@ -57,8 +57,7 @@ class PenggunaController extends Controller {
 	public function getRead($id)
 	{
 		$izin = Izin::findOrFail($id);
-		$izin->updated_by_admin = 0;
-		$izin->save();
+		$izin->readedByPengguna();
 
 		$templates = $izin->jenisIzin->templates;
 		//generate dokumen
@@ -80,8 +79,7 @@ class PenggunaController extends Controller {
 	{
 
 		$izin = Izin::findOrFail($id);
-		$izin->updated_by_pengguna = 1;
-		$izin->save();
+		$izin->updatedByPengguna();
 
 		$filePath = public_path().'/uploads/dokumen/'.$id.'/';
 		$file = Input::file('file');
@@ -99,6 +97,7 @@ class PenggunaController extends Controller {
 	public function getCancel($id)
 	{
 		$izin = Izin::findOrFail($id);
+		$izin->updatedByPengguna();
 		DB::table('status_izin')
 		->insert(['izin_id'=>$id,'status_id'=>Status::CANCELLED,'timestamp'=>Carbon::now()]);
 		return redirect()->route('izin.pengguna.read',['id'=>$id]);

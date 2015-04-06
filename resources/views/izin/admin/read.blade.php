@@ -2,7 +2,7 @@
 @extends('layouts.admin')
 @section('content')
 <div class ='row'>
-	<h3>Detail Izin: {{$izin->jenisIzin->nama}}</h3>
+	<h3 style='margin-top:5px;'>Detail Izin: {{$izin->jenisIzin->nama}}</h3>
 </div>
 
 <!-- Pemohon -->
@@ -16,12 +16,28 @@
 </div><!-- end of Pemohon -->
 
 <!-- Keterangan -->
-<div class ='row'>
-	<div class="alert alert-info" role="alert">
-        <p>{{$izin->getCurrentNamaStatus()}}</p>
-        <p>{{$izin->deskripsi}}</p>
-	</div>
-</div><!-- end of Keterangan -->
+    <div class ='row' style='margin-top:10px;'>
+        <div>
+            <b>Status</b><br/>
+                <p>{{$izin->getCurrentNamaStatus()}}</p>
+
+            <b>Keterangan</b><br/>
+                @if ($izin->deskripsi == '')
+                    <p>---</p>
+                @else
+                    <p>{{$izin->deskripsi}}</p>
+                @endif
+
+            <b>Biaya</b><br/>
+            <p>
+                @if ($izin->biaya == '')
+                    <p>Akan diberitahukan kemudian</p>
+                @else
+                    <p>{{$izin->biaya}}</p>
+                @endif
+            </p>
+        </div>
+    </div><!-- end of Keterangan -->
 
 <!-- Tabel Dokumen -->
 <div class='row'>
@@ -64,12 +80,10 @@
 
                     <!--tombol Download, setujui dan tidak setujui -->
                     @if($dokumen->url == '')
-                    	<td><a href = {{asset($dokumen->template->url)}} class = 'btn btn-primary btn-sm' disabled>Unduh dokumen</a>
-                    	<a href = {{route('izin.admin.dokumen.agree',['id'=>$izin->id,'dokumen_id'=>$dokumen->id])}} class = 'btn btn-success btn-sm' disabled>Setujui</a>
+                    	<td><a href = {{route('izin.admin.dokumen.agree',['id'=>$izin->id,'dokumen_id'=>$dokumen->id])}} class = 'btn btn-success btn-sm' disabled>Setujui</a>
                     	<a href = {{route('izin.admin.dokumen.disagree',['id'=>$izin->id,'dokumen_id'=>$dokumen->id])}} class = 'btn btn-warning btn-sm' disabled>Tidak setujui</a></td>
                     @else
-                    	<td><a href = {{asset($dokumen->template->url)}} class = 'btn btn-primary btn-sm'>Unduh dokumen</a>
-                    	<a href = {{route('izin.admin.dokumen.agree',['id'=>$izin->id,'dokumen_id'=>$dokumen->id])}} class = 'btn btn-success btn-sm'>Setujui</a>
+                    	<td><a href = {{route('izin.admin.dokumen.agree',['id'=>$izin->id,'dokumen_id'=>$dokumen->id])}} class = 'btn btn-success btn-sm'>Setujui</a>
                     	<a href = {{route('izin.admin.dokumen.disagree',['id'=>$izin->id,'dokumen_id'=>$dokumen->id])}} class = 'btn btn-warning btn-sm'>Tidak setujui</a></td>
                     @endif
                     <!-- end of tombol Download, setujui dan tidak setujui-->

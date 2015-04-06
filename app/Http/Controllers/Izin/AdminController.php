@@ -10,6 +10,12 @@ use App\Models\Dokumen;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller {
+
+	public function __construct()
+	{
+		$this->middleware('auth');
+	}
+
 	public function getIndex()
 	{
 		$listIzin = Izin::orderBy('tanggal_pengajuan','desc')->orderBy('updated_by_pengguna','desc')->get();
@@ -19,8 +25,7 @@ class AdminController extends Controller {
 	public function getRead($id)
 	{
 		$izin = Izin::findOrFail($id);
-		$izin->updated_by_pengguna = 0;
-		$izin->save();
+		$izin->readedByAdmin();
 		return view('izin.admin.read',compact('izin'));
 	}
 
@@ -29,6 +34,7 @@ class AdminController extends Controller {
 		$currentStatus = StatusIzin::where('izin_id',$id)->orderBy('timestamp','desc')->first();
 		$listStatus = Status::all();
 		$izin = Izin::findOrFail($id);
+		$izin->readedByAdmin();
 		return view('izin.admin.update',compact('currentStatus','listStatus','izin'));
 	}
 
@@ -39,17 +45,14 @@ class AdminController extends Controller {
 		$izin->updated_by_admin = 1;
 		$izin->biaya = $request->input('biaya');
 		$izin->save();
+		$izin->updatedByAdmin();
 
-		$currentStatus = StatusIzin::where('izin_id',$id)->orderBy('timestamp','desc')->first();
-
-		if ($currentStatus == $request->input('status')) {
-			$statusIzin = new StatusIzin;
-			$statusIzin->izin_id = $id;
-			$statusIzin->status_id = $request->input('status');
-			$statusIzin->timestamp = date("Y-m-d H:i:s");
-			$statusIzin->save();
-		}
-
+		
+		$statusIzin = new StatusIzin;
+		$statusIzin->izin_id = $id;
+		$statusIzin->status_id = $request->input('status');
+		$statusIzin->timestamp = date("Y-m-d H:i:s");
+		$statusIzin->save();
 		return redirect()->route('izin.admin.read',['id'=>$izin->id]);
 	}
 
@@ -60,6 +63,7 @@ class AdminController extends Controller {
 		$dokumen->save();
 
 		$izin = Izin::findOrFail($id);
+		$izin->updatedByAdmin();
 		return redirect()->route('izin.admin.read',compact('izin'));
 	}
 
@@ -70,6 +74,7 @@ class AdminController extends Controller {
 		$dokumen->save();
 
 		$izin = Izin::findOrFail($id);
+		$izin->updatedByAdmin();
 		return redirect()->route('izin.admin.read',compact('izin'));
 	}
 }

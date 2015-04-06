@@ -45,4 +45,25 @@ class Izin extends Model {
             return $current_status->id;
         }
     }
+
+    public function updatedByPengguna(){
+        $this->updated_by_pengguna = 1;
+        $this->save();
+    }
+
+    public function updatedByAdmin(){
+        $this->updated_by_admin = 1;
+        $this->save();
+    }
+
+    public function readedByPengguna(){
+        $this->updated_by_admin = 0;
+        $this->save();
+    }
+
+    public function readedByAdmin()
+    {
+        $this->updated_by_pengguna = 0;
+        $this->save();
+    }
 }

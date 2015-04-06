@@ -1,12 +1,12 @@
 <?php use App\Models\Dokumen;
 	use App\Models\Status;
 	use App\Models\Template; ?>
-@extends('layouts.pengguna');
+@extends('layouts.pengguna')
 
 
 @section('content')
 	<div class ='row'>
-		<h3>Detail Izin: {{$izin->jenisIzin->nama}}</h3>
+		<h3 style='margin-top:5px;'>Detail Izin: {{$izin->jenisIzin->nama}}</h3>
 	</div>
 
 	<!-- Pemohon -->
@@ -20,10 +20,25 @@
 	</div><!-- end of Pemohon -->
 
 	<!-- Keterangan -->
-	<div class ='row'>
-		<div class="alert alert-info" role="alert">
-            <p>{{$izin->getCurrentNamaStatus()}}</p>
-            <p>{{$izin->deskripsi}}</p>
+	<div class ='row' style='margin-top:10px;'>
+		<div>
+            <b>Status</b><br/>
+            	<p>{{$izin->getCurrentNamaStatus()}}</p>
+
+            <b>Keterangan</b><br/>
+            	@if ($izin->deskripsi == '')
+            		<p>---</p>
+				@else
+					<p>{{$izin->deskripsi}}</p>
+				@endif
+			<b>Biaya</b><br/>
+			<p>
+				@if ($izin->biaya == '')
+					<p>Akan diberitahukan kemudian</p>
+				@else
+					<p>{{$izin->biaya}}</p>
+				@endif
+			</p>
 		</div>
 	</div><!-- end of Keterangan -->
 
@@ -88,7 +103,7 @@
 	<div><!-- end Tabel Dokumen -->
 
 	<div class='row'>
-		<a href='{{route("izin.pengguna.cancel",['id'=>$izin->id])}}' class="btn btn-primary">Batalkan Izin</a>
+		<a href='{{route("izin.pengguna.cancel",['id'=>$izin->id])}}' class="btn btn-danger">Batalkan Izin</a>
 	</div>
 
 	<br>
