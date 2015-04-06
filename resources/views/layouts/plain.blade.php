@@ -7,12 +7,9 @@
 </head>
 <body>
     @section('header')
-        @include('layouts.header')
     @show
 
-    <div class='container'>
-        @yield('content')
-    </div>
+    @yield('content')
     
     @section('footer')
         @include('layouts.footer')
