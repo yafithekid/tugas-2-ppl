@@ -39,9 +39,16 @@
                 @foreach ($izin->dokumens as $dokumen)
                 <tr>
                     <td>{{++$i}}</td>
-                    <td>{{$dokumen->nama}}</td>
-
-                    <!--status Dokumen -->
+                    <td>
+                        {{$dokumen->nama}}<br/>
+                        @if($dokumen->url == '')
+                            Belum diupload
+                        @else
+                            <a href='{{asset('/'.$dokumen->url)}}' >Lihat</a>
+                        @endif
+                        | 
+                        <a href="{{asset($dokumen->template->url)}}">Download template</a>
+                    </td>
                     <td>
                     	@if($dokumen->status == DOKUMEN::STATUS_BELUM)
                     		<span class = 'label label-default'>Belum Diupload</span>
@@ -66,6 +73,7 @@
                     	<a href = {{route('izin.admin.dokumen.disagree',['id'=>$izin->id,'dokumen_id'=>$dokumen->id])}} class = 'btn btn-warning btn-sm'>Tidak setujui</a></td>
                     @endif
                     <!-- end of tombol Download, setujui dan tidak setujui-->
+
                 </tr>
                 @endforeach
 			</table>

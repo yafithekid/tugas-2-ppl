@@ -3,6 +3,7 @@
 	use App\Models\Template; ?>
 @extends('layouts.pengguna');
 
+
 @section('content')
 	<div class ='row'>
 		<h3>Detail Izin: {{$izin->jenisIzin->nama}}</h3>
@@ -36,7 +37,6 @@
 						<th>No. </th>
 						<th>Nama </th>
 						<th>Status</th>
-						<th>URL</th>
 						<th>Upload</th>
 					</tr>
                     <?php $i = 0; ?>
