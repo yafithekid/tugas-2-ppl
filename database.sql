@@ -186,7 +186,7 @@ INSERT INTO `status` (`id`, `nama`, `keterangan`) VALUES
 CREATE TABLE IF NOT EXISTS `status_izin` (
   `izin_id` int(11) NOT NULL,
   `status_id` int(11) NOT NULL,
-  `tanggal` date NOT NULL,
+  `timestamp` datetime NOT NULL,
 `id` int(11) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
@@ -195,9 +195,9 @@ CREATE TABLE IF NOT EXISTS `status_izin` (
 --
 
 INSERT INTO `status_izin` (`izin_id`, `status_id`, `tanggal`, `id`) VALUES
-(8, 7, '2015-04-05', 1),
-(8, 7, '2015-04-05', 2),
-(8, 8, '2015-04-05', 3);
+(8, 7, '2015-04-05 00:00:00', 1),
+(8, 7, '2015-04-05 01:00:00', 2),
+(8, 8, '2015-04-05 02:00:00', 3);
 
 -- --------------------------------------------------------
 

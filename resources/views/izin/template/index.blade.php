@@ -1,3 +1,7 @@
+<?php
+    use Carbon\Carbon;
+    var_dump(Carbon::now());
+?>
 @extends('layouts.admin')
 
 @section('content')
