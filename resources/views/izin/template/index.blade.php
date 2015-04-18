@@ -7,34 +7,42 @@
 </div>
 <br/>
 @if (count($list_template) > 0)
-    <table class='table'>
-        <tr>
-            <th>Nama</th>
-            <th>Aksi</th>
-            <th>Upload</th>
-        </tr>
+    <div class='panel panel-primary'>
+        <table class='table table-hover'>
+            <tr>
+                <th>Nama</th>
+                <th>Aksi</th>
+                <th>Upload</th>
+            </tr>
 
-        @foreach($list_template as $template)
-        <tr>
-            @if ($template->url == '')
-                <td>{{$template->nama}}</td>
-            @else
-                <td><a href='{{asset($template->url)}}'>{{$template->nama}}</a></td>
-            @endif
-            <td>
-                <a href='{{URL::route("izin.template.update",["id"=>$template->id])}}'><i class='glyphicon glyphicon-pencil'></i></a> 
-            </td>
-            <td>
-                <form action='{{route('izin.template.upload.submit',['id'=>$template->id])}}' method='post' enctype='multipart/form-data'>
-                    <input type='hidden' name='_token' value='{{csrf_token()}}'/>
-                    <input type='file' name='file'/>
-                    <input type='submit' class='btn btn-primary' value='Upload'/>
-                </form>
-            </td>
-        </tr>
-        @endforeach
+            @foreach($list_template as $template)
+            <tr>
+                @if ($template->url == '')
+                    <td>{{$template->nama}}</td>
+                @else
+                    <td><a href='{{asset($template->url)}}'>{{$template->nama}}</a></td>
+                @endif
+                <td>
+                    <a href='{{URL::route("izin.template.update",["id"=>$template->id])}}'><i class='glyphicon glyphicon-pencil'></i></a> 
+                </td>
+                <td>
+                    <form action='{{route('izin.template.upload.submit',['id'=>$template->id])}}' class='form-inline' method='post' enctype='multipart/form-data'>
+                        <div class='form-group'>
+                            <input type='hidden' name='_token' value='{{csrf_token()}}'/>
+                        </div>
+                        <div class='form-group'>
+                            <input type='file' name='file'/>
+                        </div>
+                        <div class='form-group'>
+                            <input type='submit' class='btn btn-primary' value='Upload'/>
+                        </div>    
+                    </form>
+                </td>
+            </tr>
+            @endforeach
 
-    </table>
+        </table>
+    </div>
 @else
     Data kosong
 @endif
