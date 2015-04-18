@@ -1,28 +1,36 @@
-<div class='sidebar panel panel-info'>
-    <div class='panel-heading'>
-        <h3 class='panel-title'>Menu Izin</h3>
-    </div>
-    <ul class='list-group'>
-        <a href='{{route('izin.admin.index')}}'><li class='list-group-item @if(Route::is('izin.admin.index')) active @endif'>Daftar Permohonan Izin</li></a>
-    </ul>
-</div>
+<!-- **********************************************************************************************************************************************************
+      MAIN SIDEBAR MENU
+      *********************************************************************************************************************************************************** -->
+<!--sidebar start-->
 
-<div class='sidebar panel panel-info'>
-    <div class='panel-heading'>
-        <h3 class='panel-title'>Menu Trayek</h3>
-    </div>
-    <ul class='list-group'>
-        <a href='#'><li class='list-group-item'>Daftar Trayek</li></a>
-    </ul>
-</div>
+<aside>
+  <div id="sidebar"  class="nav-collapse ">
+      <!-- sidebar menu start-->
+      <ul class="sidebar-menu" id="nav-accordion">
+      
+          <p class="centered"><a href="profile.html"><img src="assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
+          <h5 class="centered">{{Auth::user()->nama}}</h5>
+            
+          <li class="sub-menu">
+              <a class="@if(Route::is('izin.admin.index')) active @endif" href="{{route('izin.admin.index')}}">
+                  <i class="fa fa-tasks"></i>
+                  <span>Daftar Permohonan Izin</span>
+              </a>
+          </li>
 
-<div class='sidebar panel panel-info'>
-    <div class='panel-heading'>
-        <h3 class='panel-title'>Manajemen</h3>
-    </div>
-    <ul class='list-group'>
-        <a href='{{route('izin.status.index')}}'><li class='list-group-item @if(Route::is('izin.status.index')) active @endif'>Status Izin</li></a>
-        <a href='{{route('izin.jenis.index')}}'><li class='list-group-item @if(Route::is('izin.jenis.index')) active @endif'>Jenis Izin</li></a>
-        <a href='{{route('izin.template.index')}}'><li class='list-group-item @if(Route::is('izin.template.index')) active @endif'>Template Izin</li></a>
-    </ul>
-</div>
+          <li class="sub-menu">
+              <a href="javascript:;">
+                  <i class="fa fa-cogs"></i>
+                  <span>Manajemen</span>
+              </a>
+              <ul class='sub'>
+                <li><a href='{{route('izin.status.index')}}'>Status Izin</a></li>
+                <li><a href='{{route('izin.jenis.index')}}'>Jenis Izin</a></li>
+                <li><a href='{{route('izin.template.index')}}'>Template Dokumen</a></li>
+              </ul>
+          </li>
+      </ul>
+      <!-- sidebar menu end-->
+  </div>
+</aside>
+<!--sidebar end-->

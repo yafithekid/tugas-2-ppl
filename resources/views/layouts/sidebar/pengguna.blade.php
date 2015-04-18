@@ -1,27 +1,24 @@
+<!-- **********************************************************************************************************************************************************
+      MAIN SIDEBAR MENU
+      *********************************************************************************************************************************************************** -->
+<!--sidebar start-->
 
-<div class='sidebar panel panel-info'>
-    <div class='panel-heading'>
-        <h3 class='panel-title'>Profil</h3>
-    </div>
-    <div class='panel-body' style='text-align:center'>
-        <p>{{Auth::user()->nama}}</p>
-        <p><a href='{{route('izin.pengguna.create')}}' style='color:white' class='btn btn-primary'>Ajukan Izin</a></p>
-    </div>
-</div>
-<div class='sidebar panel panel-info'>
-    <div class='panel-heading'>
-        <h3 class='panel-title'>Menu Izin</h3>
-    </div>
-    <ul class='list-group'>
-        <a href='{{route('izin.pengguna.index')}}'><li class='list-group-item @if(Route::is('izin.pengguna.index')) active @endif'>Daftar Permohonan Izin</li></a>
-    </ul>
-</div>
-
-<div class='sidebar panel panel-info'>
-    <div class='panel-heading'>
-        <h3 class='panel-title'>Menu Trayek</h3>
-    </div>
-    <ul class='list-group'>
-        <a href='#'><li class='list-group-item'> Rekomendasi Trayek</li></a>
-    </ul>
-</div>
+<aside>
+  <div id="sidebar"  class="nav-collapse ">
+      <!-- sidebar menu start-->
+      <ul class="sidebar-menu" id="nav-accordion">
+      
+          <p class="centered"><a href="profile.html"><img src="assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
+          <h5 class="centered">{{Auth::user()->nama}}</h5>
+            
+          <li class="sub-menu">
+              <a href="{{route('izin.pengguna.index')}}">
+                  <i class="fa fa-tasks"></i>
+                  <span>Daftar Permohonan Izin</span>
+              </a>
+          </li>
+      </ul>
+      <!-- sidebar menu end-->
+  </div>
+</aside>
+<!--sidebar end-->

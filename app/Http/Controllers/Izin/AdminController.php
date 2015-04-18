@@ -8,6 +8,7 @@ use App\Models\Izin;
 use App\Models\Dokumen;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Event;
 use Session;
 
 class AdminController extends Controller {
@@ -26,6 +27,7 @@ class AdminController extends Controller {
 	public function getRead($id)
 	{
 		$izin = Izin::findOrFail($id);
+		Event::fire('izin.updated_by_admin',[$izin]);
 		$izin->readedByAdmin();
 		return view('izin.admin.read',compact('izin'));
 	}
@@ -47,6 +49,7 @@ class AdminController extends Controller {
 		$izin->biaya = $request->input('biaya');
 		$izin->save();
 		$izin->updatedByAdmin();
+
 
 		$statusIzin = new StatusIzin;
 		$statusIzin->izin_id = $id;

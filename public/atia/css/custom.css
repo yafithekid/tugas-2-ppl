@@ -54,3 +54,8 @@
     background-color: #e6e9ed;
     color: black;
 }
+
+#main-content {
+    padding-left: 20px;
+    padding-right: 20px;
+}

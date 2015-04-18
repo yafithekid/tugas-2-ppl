@@ -8,15 +8,13 @@
         @include('layouts.header')
     @show
 
-    <div class='container'>
-        @include('layouts.notification')
-        <div class='col-sm-3'>@include('layouts.sidebar.pengguna')</div>
-        <div class='col-sm-9'>
-            @include('layouts.notification')
+    @include('layouts.sidebar.pengguna')
+    <section id="main-content">
+          <section class="wrapper">
+            @include('layouts.notification')<br/>
             @yield('content')
-        </div>
-        
-    </div>
+          </section>
+    </section>
     
     @section('footer')
         @include('layouts.footer')

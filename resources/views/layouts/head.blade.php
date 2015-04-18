@@ -4,8 +4,14 @@
 <title>Laravel</title>
 
 <link href="{{ asset('/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-<link href="{{ asset('/bootflat/css/bootflat.min.css') }}" rel="stylesheet">
+<link href="{{ asset('/dashgum/font-awesome/css/font-awesome.css') }}" rel='stylesheet'>
+<link href="{{ asset('/dashgum/css/style.css') }}" rel="stylesheet">
+<link href="{{ asset('/dashgum/css/style-responsive.css') }}" rel="stylesheet">
+<link href="{{ asset('/dashgum/css/to-do.css') }}" rel="stylesheet">
+<link href="{{ asset('/dashgum/css/table-responsive.css') }}" rel="stylesheet">
+<link href="{{ asset('/dashgum/css/to-do.css') }}" rel="stylesheet">
 <link href="{{ asset('/atia/css/custom.css') }}" rel='stylesheet'>
+
 
 <!-- Fonts -->
 

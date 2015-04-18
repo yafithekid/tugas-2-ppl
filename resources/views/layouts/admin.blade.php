@@ -7,15 +7,14 @@
     @section('header')
         @include('layouts.header')
     @show
-
-    <div class='container'>
-
-        <div class='col-sm-3'>@include('layouts.sidebar.admin')</div>
-        <div class='col-sm-9'>
+    
+    @include('layouts.sidebar.admin')
+    <section id="main-content">
+          <section class="wrapper">
             @include('layouts.notification')<br/>
             @yield('content')
-        </div>
-    </div>
+          </section>
+    </section>
     @section('footer')
         @include('layouts.footer')
     @stop

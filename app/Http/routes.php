@@ -12,6 +12,7 @@
 */
 
 //Route::get('/', 'WelcomeController@index');
+Event::subscribe('App\Events\Subscriber\IzinUpdatedEventHandler');
 
 Route::get('/admin',['as'=>'home.admin','uses'=>'Izin\AdminController@getIndex']);
 Route::get('/',['as'=>'home','uses'=>'Izin\PenggunaController@getIndex']);
