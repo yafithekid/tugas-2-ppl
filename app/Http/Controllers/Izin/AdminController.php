@@ -57,7 +57,7 @@ class AdminController extends Controller {
 		$statusIzin->timestamp = date("Y-m-d H:i:s");
 		$statusIzin->save();
 
-		Session::flash('notif-success','Dokumen berhasil diubah');
+		Session::flash('notif-success','Status izin berhasil diubah');
 		return redirect()->route('izin.admin.read',['id'=>$izin->id]);
 	}
 

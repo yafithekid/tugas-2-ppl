@@ -1,7 +1,8 @@
 @extends('layouts.master')
 
 @section('content')
-	<div class='col-xs-4 col-xs-offset-4'>
+	
+	<div class='col-xs-4 col-xs-offset-4' >
 		<div class='form-header'>Login</div>
 		<form role="form" method="POST" action="{{ route('login.submit') }}">
 			
@@ -24,5 +25,4 @@
 			</div>
 		</form>
 	</div>
-</div>
 @endsection
