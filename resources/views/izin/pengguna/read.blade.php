@@ -78,7 +78,7 @@
 	                    	@elseif($dokumen->status == DOKUMEN::STATUS_OK)
 	                    		<span class = 'label label-success'>Sudah diterima</span>
 	                    	@elseif($dokumen->status == DOKUMEN::STATUS_BERMASALAH)
-	                    		<span class = 'label label-error'>Bermasalah</span>
+	                    		<span class = 'label label-warning'>Bermasalah</span>
 	                    	@endif
 		                    </td>
 	                        <td>
