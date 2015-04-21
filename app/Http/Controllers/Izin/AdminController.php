@@ -45,10 +45,9 @@ class AdminController extends Controller {
 	{
 		$izin = Izin::findOrFail($id);
 		$izin->deskripsi = $request->input('deskripsi');
-		$izin->updated_by_admin = 1;
 		$izin->biaya = $request->input('biaya');
 		$izin->save();
-		$izin->updatedByAdmin();
+		Event::fire('izin.updated_by_admin',[$izin]);
 
 
 		$statusIzin = new StatusIzin;
@@ -68,7 +67,7 @@ class AdminController extends Controller {
 		$dokumen->save();
 
 		$izin = Izin::findOrFail($id);
-		$izin->updatedByAdmin();
+		Event::fire('izin.updated_by_admin',[$izin]);
 
 		Session::flash('notif-success','Dokumen berhasil di setujui');
 
@@ -82,7 +81,7 @@ class AdminController extends Controller {
 		$dokumen->save();
 
 		$izin = Izin::findOrFail($id);
-		$izin->updatedByAdmin();
+		Event::fire('izin.updated_by_admin',[$izin]);
 
 		Session::flash('notif-success','Dokumen berhasil ditolak');
 		return redirect()->route('izin.admin.read',compact('izin'));

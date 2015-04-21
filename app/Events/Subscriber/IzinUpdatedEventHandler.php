@@ -12,8 +12,14 @@ class IzinUpdatedEventHandler {
 	//use SerializesModels;
 
 	public function onIzinUpdatedByAdmin($izin){
-		\Log::info($izin->biaya);
+		$izin->updated_by_admin = 1;
+        $izin->save();
 	}
+
+    public function onIzinUpdatedByPengguna($izin){
+        $izin->updated_by_pengguna = 1;
+        $izin->save();
+    }
 
 	public function subscribe($events){
 		$events->listen('izin.updated_by_admin','App\Events\Subscriber\IzinUpdatedEventHandler@onIzinUpdatedByAdmin');

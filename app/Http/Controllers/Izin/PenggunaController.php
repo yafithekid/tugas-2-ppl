@@ -15,7 +15,7 @@ use DB;
 use Session;
 use Validator;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\Event;
 class PenggunaController extends Controller {
 	public function __construct(){
 		$this->middleware('auth');
@@ -43,11 +43,11 @@ class PenggunaController extends Controller {
 		$izin = new Izin();
 		$izin->jenisizin_id = Request::input('jenisizin_id');
 		$izin->pengguna_id = Auth::user()->id;
-		$izin->updated_by_pengguna = 1;
 		$izin->tanggal_pengajuan = date("Y-m-d");
 		$validator = Validator::make(Request::all(),Izin::$rules);
 		if (!$validator->fails()){
 			$izin->save();
+			Event::fire('izin.updated_by_pengguna',[$izin]);
 
 			$statusIzin = new StatusIzin;
 			$statusIzin->izin_id = $izin->id;
@@ -90,7 +90,7 @@ class PenggunaController extends Controller {
 	{
 
 		$izin = Izin::findOrFail($id);
-		$izin->updatedByPengguna();
+		Event::fire('izin.updated_by_pengguna',[$izin]);
 
 		$filePath = public_path().'/uploads/dokumen/'.$id.'/';
 		$file = Input::file('file');
@@ -109,7 +109,7 @@ class PenggunaController extends Controller {
 	public function getCancel($id)
 	{
 		$izin = Izin::findOrFail($id);
-		$izin->updatedByPengguna();
+		Event::fire('izin.updated_by_pengguna',[$izin]);
 		DB::table('status_izin')
 		->insert(['izin_id'=>$id,'status_id'=>Status::CANCELLED,'timestamp'=>Carbon::now()]);
 
