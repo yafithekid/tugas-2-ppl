@@ -3,7 +3,8 @@
 
 use App\Events\Event;
 use App\Models\Izin;
-
+use App\Models\Pengguna;
+use \Mail;
 
 //use Illuminate\Queue\SerializesModels;
 
@@ -14,6 +15,15 @@ class IzinUpdatedEventHandler {
 	public function onIzinUpdatedByAdmin($izin){
 		$izin->updated_by_admin = 1;
         $izin->save();
+        $pengguna = $izin->pengguna;
+        $data = [
+            'izin' => $izin,
+        ];
+        Mail::send('izin.pengguna.email_notifikasi', $data, function($message) use ($pengguna)
+        {
+          $message->from('if3250.p1.kel1@gmail.com', 'Admin Tamanku');
+          $message->to($pengguna['email'], $pengguna['name'])->subject('Perubahan status izin angkutan');
+        });
 	}
 
     public function onIzinUpdatedByPengguna($izin){
