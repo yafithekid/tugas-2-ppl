@@ -19,11 +19,16 @@ class IzinUpdatedEventHandler {
         $data = [
             'izin' => $izin,
         ];
-        Mail::send('izin.pengguna.email_notifikasi', $data, function($message) use ($pengguna)
-        {
-          $message->from('if3250.p1.kel1@gmail.com', 'Admin Tamanku');
-          $message->to($pengguna['email'], $pengguna['name'])->subject('Perubahan status izin angkutan');
-        });
+        try {
+            Mail::send('izin.pengguna.email_notifikasi', $data, function($message) use ($pengguna)
+            {
+              $message->from('if3250.p1.kel1@gmail.com', 'Admin Tamanku');
+              $message->to($pengguna['email'], $pengguna['name'])->subject('Perubahan status izin angkutan');
+            });
+        } catch (Exception $e) {
+            dd("kirim email gagal");
+        }
+        
 	}
 
     public function onIzinUpdatedByPengguna($izin){

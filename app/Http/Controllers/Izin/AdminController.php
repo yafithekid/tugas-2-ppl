@@ -27,7 +27,7 @@ class AdminController extends Controller {
 	public function getRead($id)
 	{
 		$izin = Izin::findOrFail($id);
-		Event::fire('izin.updated_by_admin',[$izin]);
+		
 		$izin->readedByAdmin();
 		return view('izin.admin.read',compact('izin'));
 	}

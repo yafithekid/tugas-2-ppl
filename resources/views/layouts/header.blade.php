@@ -11,21 +11,16 @@
             <!--logo start-->
             <a href="index.html" class="logo"><b>Aplikasi Terkait Izin Angkutan</b></a>
             <!--logo end-->
-            <div class="nav notify-row navbar-right" id="top_menu">
-                <!--  notification start -->
-                <ul class="nav top-menu">
+                <ul class="nav top-menu pull-right">
                     <!-- settings start -->
                     @if (!Auth::guest())
-                    <li class='dropdown'>
-                        <a href="{{route('logout')}}">
-                            <i class="fa fa-power-off"></i>
-                            <span>Logout</span>
+                    <li>
+                        <a href="{{route('logout')}}" class='logout'>
+                            Logout
                         </a>
                         
                     </li>
                     @endif
                 </ul>
-                <!--  notification end -->
-            </div>
         </header>
       <!--header end-->
