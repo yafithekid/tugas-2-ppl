@@ -20,6 +20,12 @@
                         </a>
                         
                     </li>
+                    @else
+                    <li>
+                      <a href='{{route('oauth.do_authorization')}}' class='logout'>
+                        Login dengan dukcapil
+                      </a>
+                    </li>
                     @endif
                 </ul>
         </header>

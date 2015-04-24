@@ -19,10 +19,15 @@ Route::get('/',['as'=>'home','uses'=>'Izin\PenggunaController@getIndex']);
 Route::get('/landing-page',['as'=>'landing_page','uses'=>'HomeController@index']);
 
 
+
 Route::group(['namespace'=>'Auth'],function(){
     Route::get('/login',['as'=>'login','uses'=>'AuthController@getLogin']);
     Route::post('/login',['as'=>'login.submit','uses'=>'AuthController@postLogin']);
     Route::get('/logout',['as'=>'logout','uses'=>'AuthController@getLogout']);
+    Route::get('/oauth/request-access-token',['as'=>'oauth.request_access_token','uses'=>'OAuthController@getRequestAccessToken']);
+    Route::get('/oauth/authenticated',['as'=>'oauth.authenticated','uses'=>'OAuthController@getAuthenticated']);
+    Route::get('/oauth/do-authorization',['as'=>'oauth.do_authorization','uses'=>'OAuthController@doAuthorization']);
+    Route::get('/oauth/after-authorized',['as'=>'oauth.after_authorized','uses'=>'OAuthController@getAfterAuthorized']);
 });
 Route::group(['prefix'=>'izin','namespace'=>'Izin'],function(){
     //CRUD untuk pengguna

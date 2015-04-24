@@ -20,7 +20,7 @@ class AuthController extends Controller {
 	public function getLogout()
 	{
 		Auth::logout();
-		return redirect()->route('home');
+		return redirect()->route('landing_page');
 	}
 
 	public function postLogin()

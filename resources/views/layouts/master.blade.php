@@ -10,12 +10,12 @@
         @include('layouts.header')
     @show
     
-    <section id="main-content">
+    <div class='container'>
           <section class="wrapper">
             @include('layouts.notification')<br/>
             @yield('content')
           </section>
-    </section>
+    </div>
     
     @section('footer')
         @include('layouts.footer')
