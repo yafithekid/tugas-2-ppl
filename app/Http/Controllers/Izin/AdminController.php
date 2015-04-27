@@ -186,7 +186,7 @@ class AdminController extends Controller {
 		$pdf->Cell(0,20,'',0,1);
 		$pdf->Cell(0,0,'Laporan ini mengacu pada izin - izin yang masuk pada : ',0,1);
 
-		$pdf->Cell(0,0,'Bulan : '.$monthName[$bulan],0,1);
+		$pdf->Cell(0,0,'Bulan : '.$monthName[$bulan-1],0,1);
 		$pdf->Cell(0,0,'Tahun : '.$tahun,0,1);
 		$pdf->Ln();
 		$pdf->Ln();
