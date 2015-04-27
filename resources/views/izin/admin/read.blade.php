@@ -5,6 +5,10 @@
 	<h3 style='margin-top:5px;'>Detail Izin: {{$izin->jenisIzin->nama}}</h3>
 </div>
 
+@if ($izin->spam)
+        <div class='alert alert-danger'>Dokumen ini ditandai <i>spam</i> oleh admin. Silakan hubungi admin untuk keterangan lebih lanjut</div>
+    @endif
+
 <!-- Pemohon -->
 <div class ='row'>
 	<div class='col-md-12'>
@@ -70,13 +74,25 @@
                     <td>{{++$i}}</td>
                     <td>
                         {{$dokumen->nama}}<br/>
-                        @if ($dokumen->url == null)
-                        Belum upload file
+                        @if ($dokumen->template->butuh_upload)
+                            @if ($dokumen->url == null)
+                            Belum upload file
+                            @else
+                            <a href="{{asset($dokumen->url)}}">Lihat hasil upload</a> 
+                            @endif
+                            
+                            |
+
+                            @if ($dokumen->template->url != '')
+                            <a href="{{asset($dokumen->template->url)}}">Download template</a>
+                            @else
+                            Template tidak tersedia
+                            @endif
                         @else
-                        <a href="{{asset($dokumen->url)}}">Lihat hasil upload</a> 
+                            <a href='#'>Lihat data</a>
                         @endif
-                        |
-                        <a href="{{asset($dokumen->template->url)}}">Download template</a>
+                        
+                        
                     </td>
                     <td>
                     	@if($dokumen->status == DOKUMEN::STATUS_BELUM)
@@ -87,12 +103,14 @@
                     		<span class = 'label label-success'>Sudah diterima</span>
                     	@elseif($dokumen->status == DOKUMEN::STATUS_BERMASALAH)
                     		<span class = 'label label-warning'>Bermasalah</span>
-                    	@endif
+                    	@elseif($dokumen->status == Dokumen::STATUS_BUTUH_PERPANJANGAN)
+                                <span class='label label-warning'>Butuh Perpanjangan</span>
+                        @endif
                     </td>
                     <!-- end of status Dokumen -->
 
                     <!--tombol Download, setujui dan tidak setujui -->
-                    @if($dokumen->url == '')
+                    @if($dokumen->status == Dokumen::STATUS_BELUM)
                     	<td><a href = {{route('izin.admin.dokumen.agree',['id'=>$izin->id,'dokumen_id'=>$dokumen->id])}} class = 'btn btn-success btn-sm' disabled>Setujui</a>
                     	<a href = {{route('izin.admin.dokumen.disagree',['id'=>$izin->id,'dokumen_id'=>$dokumen->id])}} class = 'btn btn-warning btn-sm' disabled>Tidak setujui</a></td>
                     @else

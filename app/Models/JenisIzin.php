@@ -11,13 +11,12 @@ class JenisIzin extends Model {
     public $timestamps = false;
 
     //ini buat yang bisa di-fill pake $model->fill
-    protected $fillable = ['nama','biaya'];
+    protected $fillable = ['nama','tahun_berlaku'];
     //daftar validasi
     //ini variabelnya bikinan sendiri. tapi isi variabelnya tertentu
     //http://laravel.com/docs/5.0/validation 
     public static $rules = [
         'nama' => ['required'],
-        'biaya' => ['numeric','required']
     ];
 
     public function templates()

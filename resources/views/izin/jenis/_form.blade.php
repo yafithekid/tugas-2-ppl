@@ -8,5 +8,10 @@
     <span>{{$errors->first('nama')}}</span>
 </div>
 <div class='form-group'>
+    <label for='nama'>Masa Berlaku (dalam tahun)</label>
+    <input name='tahun_berlaku' type='number' value='{{$jenis_izin->tahun_berlaku}}' class='form-control'/>
+    <span>{{$errors->first('tahun_berlaku')}}</span>
+</div>
+<div class='form-group'>
     <input type='submit' value='{{$button}}' class='btn btn-primary'/>
 </div>

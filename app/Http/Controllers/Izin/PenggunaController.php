@@ -83,6 +83,12 @@ class PenggunaController extends Controller {
 				$dokumen->izin_id = $id;
 				$dokumen->template_id = $template->id;
 				$dokumen->save();
+				if (!$dokumen->template->butuh_upload){
+					$dokumen->status = Dokumen::STATUS_PENDING;
+				} else {
+					$dokumen->status = Dokumen::STATUS_BELUM;
+				}
+				$dokumen->save();
 			}
 		}
 		$izin = Izin::where('id','=',$id)->with('dokumens')->first();

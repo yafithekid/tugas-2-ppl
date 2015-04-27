@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'AddButuhPerpanjanganDiTemplateIzin' => $baseDir . '/database/migrations/2015_04_28_050020_add_butuh_perpanjangan_di_template_izin.php',
+    'AddKolomSpamKeIzin' => $baseDir . '/database/migrations/2015_04_28_140543_add_kolom_spam_ke_izin.php',
     'AddPerusahaanColumnToIzin' => $baseDir . '/database/migrations/2015_04_28_033205_add_perusahaan_column_to_izin.php',
     'App\\Commands\\Command' => $baseDir . '/app/Commands/Command.php',
     'App\\Commands\\RequestAccessToken' => $baseDir . '/app/Commands/RequestAccessToken.php',
@@ -1577,6 +1578,7 @@ return array(
     'SebastianBergmann\\Version' => $vendorDir . '/sebastian/version/src/Version.php',
     'SessionHandlerInterface' => $vendorDir . '/symfony/http-foundation/Symfony/Component/HttpFoundation/Resources/stubs/SessionHandlerInterface.php',
     'StatusSeeder' => $baseDir . '/database/seeds/StatusSeeder.php',
+<<<<<<< HEAD
     'Stringy\\StaticStringy' => $vendorDir . '/danielstjules/stringy/src/StaticStringy.php',
     'Stringy\\Stringy' => $vendorDir . '/danielstjules/stringy/src/Stringy.php',
     'SuperClosure\\Analyzer\\AstAnalyzer' => $vendorDir . '/jeremeamia/SuperClosure/src/Analyzer/AstAnalyzer.php',
@@ -2201,6 +2203,9 @@ return array(
     'TCPDF_IMPORT' => $vendorDir . '/tecnick.com/tcpdf/tcpdf_import.php',
     'TCPDF_PARSER' => $vendorDir . '/tecnick.com/tcpdf/tcpdf_parser.php',
     'TCPDF_STATIC' => $vendorDir . '/tecnick.com/tcpdf/include/tcpdf_static.php',
+=======
+    'TambahKolomApakahDokumenButuhDiuploadAtauTidak' => $baseDir . '/database/migrations/2015_04_28_133744_tambah_kolom_apakah_dokumen_butuh_diupload_atau_tidak.php',
+>>>>>>> d6426bf4ecbd89f2793fff973af6d82b57cba323
     'TemplateIzinSeeder' => $baseDir . '/database/seeds/TemplateIzinSeeder.php',
     'TemplateSeeder' => $baseDir . '/database/seeds/TemplateSeeder.php',
     'TestCase' => $baseDir . '/tests/TestCase.php',

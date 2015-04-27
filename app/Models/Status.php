@@ -18,6 +18,6 @@ class Status extends Model {
     ];
 
     
-    const CANCELLED = 12;
+    const CANCELLED = 6;
 
 }

@@ -9,7 +9,9 @@ use App\Models\Izin;
 	<div class ='row'>
 		<h3 style='margin-top:5px;'>Detail Izin: {{$izin->jenisIzin->nama}}</h3>
 	</div>
-
+	@if ($izin->spam)
+		<div class='alert alert-danger'>Dokumen ini ditandai <i>spam</i> oleh admin. Silakan hubungi admin untuk keterangan lebih lanjut</div>
+	@endif
 	<!-- Pemohon -->
 	<div class ='row'>
 		<div class='col-md-12'>
@@ -40,7 +42,7 @@ use App\Models\Izin;
 	    	</p>
 
             <b>Status</b><br/>
-            	<p>{{$izin->getCurrentNamaStatus()}}</p>
+            <p>{{$izin->getCurrentNamaStatus()}}</p>
 
             <b>Keterangan</b><br/>
             	@if ($izin->deskripsi == '')
@@ -79,13 +81,25 @@ use App\Models\Izin;
 	                        <td>{{++$i}}</td>
 	                        <td>
 	                            {{$dokumen->nama}}<br/>
-	                            @if ($dokumen->url == null)
-	                            Belum upload file
-	                            @else
-	                            <a href="{{asset($dokumen->url)}}">Lihat hasil upload</a> 
-	                            @endif
-	                            |
-	                            <a href="{{asset($dokumen->template->url)}}">Download template</a>
+	                            @if ($dokumen->template->butuh_upload)
+		                            @if ($dokumen->url == null)
+		                            Belum upload file
+		                            @else
+		                            <a href="{{asset($dokumen->url)}}">Lihat hasil upload</a> 
+		                            @endif
+		                            
+		                            |
+
+		                            @if ($dokumen->template->url != '')
+			                        <a href="{{asset($dokumen->template->url)}}">Download template</a>
+			                        @else
+			                        Template tidak tersedia
+			                        @endif
+		                        @else
+		                        	<a href='#'>Lihat data</a>
+		                        @endif
+	                            
+	                            
 	                        </td>
 	                        <td>
 	                    	@if($dokumen->status == DOKUMEN::STATUS_BELUM)
@@ -101,6 +115,7 @@ use App\Models\Izin;
 	                    	@endif
 		                    </td>
 	                        <td>
+	                        	@if ($dokumen->template->butuh_upload)
 	                            <form class="form-inline" action={{route('izin.pengguna.upload_dokumen',['id'=>$izin->id,'template_id'=>$dokumen->template_id])}} method="post" enctype="multipart/form-data">
 	                            	<div>
 									    <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -109,9 +124,12 @@ use App\Models\Izin;
 	                                    <input type="file" name="file" id="fileToUpload"/>
 	                                </div>
 	                                <div class="form-group">
-	                                    <button class='btn btn-primary btn-sm' type="submit">Submit</input>
+	                                    <button class='btn btn-primary btn-sm' type="submit" @if($dokumen->status == Dokumen::STATUS_OK) disabled @endif >Submit</input>
 	                                </div>
 	                            </form>
+	                            @else
+	                            	{{$dokumen->template->keterangan}}
+	                            @endif
 	                        </td>
 	                    </tr>
                     @endif
@@ -122,7 +140,7 @@ use App\Models\Izin;
 	<div><!-- end Tabel Dokumen -->
 
 	<div class='row'>
-		<a href='{{route("izin.pengguna.cancel",['id'=>$izin->id])}}' class="btn btn-danger">Batalkan Izin</a>
+		<a href='{{route("izin.pengguna.cancel",['id'=>$izin->id])}}' class="btn btn-danger" onclick='return confirm("Aksi ini tidak dapat dibatalkan. Lanjutkan?")'>Batalkan Izin</a>
 	</div>
 
 	<br>

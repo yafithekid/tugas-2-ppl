@@ -32,7 +32,6 @@ class AdminController extends Controller {
 	public function getRead($id)
 	{
 		$izin = Izin::findOrFail($id);
-		
 		$izin->readedByAdmin();
 		return view('izin.admin.read',compact('izin'));
 	}
@@ -224,6 +223,14 @@ class AdminController extends Controller {
 		$pdf->PieLabel("Taksi",$xc,$yc,$r,180,360,0);*/
 
 		$pdf->Output('hello_world.pdf');
+	}
 
+	public function getMarkSpam($id)
+	{
+		$izin = Izin::findOrFail($id);
+		$izin->spam = !$izin->spam;
+		$izin->save();
+		Event::fire('izin.updated_by_admin',[$izin]);
+		return redirect()->route('izin.admin.index');
 	}
 }

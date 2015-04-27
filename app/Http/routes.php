@@ -50,6 +50,7 @@ Route::group(['prefix'=>'izin','namespace'=>'Izin'],function(){
         Route::post('/{id}/update',['as'=>'izin.admin.update.submit','uses'=>'AdminController@postUpdate']);
         Route::get('/{id}/dokumen/{dokumen_id}/agree',['as'=>'izin.admin.dokumen.agree','uses'=>'AdminController@getAgreeDokumen']);
         Route::get('/{id}/dokumen/{dokumen_id}/disagree',['as'=>'izin.admin.dokumen.disagree','uses'=>'AdminController@getDisagreeDokumen']);
+        Route::get('/{id}/mark-spam',['as'=>'izin.admin.mark_spam','uses'=>'AdminController@getMarkSpam']);
     });
     //ubah jenis izin
     Route::group(['prefix'=>'jenis'],function(){
