@@ -3,6 +3,7 @@
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Status;
+use App\Models\Izin;
 class Izin extends Model {
 
 	protected $table = 'izin';
@@ -76,5 +77,13 @@ class Izin extends Model {
             return strtotime($this->tanggal_perpanjangan) - 3600 * 24 * 30 < time();
         }
         
+    }
+
+    public function getNamaIzin() {
+        $namaIzin = JenisIzin::findOrFail($this->id);
+        if ($namaIzin == null) {
+            return '';
+        }
+        return $namaIzin->nama;
     }
 }

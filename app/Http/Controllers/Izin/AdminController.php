@@ -10,6 +10,11 @@ use App\Models\Dokumen;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use Session;
+use PDF;
+use App\Utility\MYPDF;
+use TCPDF;
+use Carbon\Carbon;
+use DB;
 
 class AdminController extends Controller {
 
@@ -85,5 +90,140 @@ class AdminController extends Controller {
 
 		Session::flash('notif-success','Dokumen berhasil ditolak');
 		return redirect()->route('izin.admin.read',compact('izin'));
+	}
+
+	public function getListReport() {
+		return view('izin.admin.listreport');
+	}
+
+	public function getReport($month)
+	{
+		$monthName = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September"
+			,"Oktober","November","Desember"];
+		$time = Carbon::now();
+		$bulan = $month;
+		$tahun = $time->year;
+
+
+		$listIzin = Izin::where(DB::raw('Month(tanggal_pengajuan)'),$bulan)
+					->where(DB::raw('Year(tanggal_pengajuan)'),$tahun)
+					->select('id','nama_perusahaan','biaya')
+					->get();
+
+		$listIzinTable = [];
+
+		$jumlahIzinAngkot = 0;
+		$jumlahIzinTaksi = 0;
+		$jumlahIzinDiterimaAngkot = 0;
+		$jumlahIzinDiterimaTaksi = 0;
+		$jumlahIzinDitolakAngkot = 0;
+		$jumlahIzinDitolakTaksi = 0;
+
+		foreach ($listIzin as $izin) {
+			$izinTable[0] = $izin->id;
+			$izinTable[1] = $izin->getNamaIzin();
+			$izinTable[2] = $izin->getCurrentNamaStatus();
+			$izinTable[3] = $izin["nama_perusahaan"];
+			$izinTable[4] = $izin->biaya;
+			if ($izinTable[4] == null) $izinTable[4] = '-';
+			array_push($listIzinTable,$izinTable);
+
+			if ($izinTable[2] == "Izin Ditolak") {
+				if ($izin->getNamaIzin() == 'Izin Usaha Angkutan Umum') {
+					$jumlahIzinAngkot++;
+					$jumlahIzinDitolakAngkot++;
+				} else {
+					$jumlahIzinTaksi++;
+					$jumlahIzinDitolakTaksi++;
+				}
+			} else {
+				if ($izin->getNamaIzin() == 'Izin Usaha Angkutan Umum') {
+					$jumlahIzinAngkot++;
+					$jumlahIzinDiterimaAngkot++;
+				} else {
+					$jumlahIzinTaksi++;
+					$jumlahIzinDiterimaTaksi++;
+				}
+			}
+		}
+
+		$pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+		// set document information
+		$pdf->SetCreator(PDF_CREATOR);
+		$pdf->SetAuthor('Nicola Asuni');
+		$pdf->SetTitle('TCPDF Example 003');
+		$pdf->SetSubject('TCPDF Tutorial');
+		$pdf->SetKeywords('TCPDF, PDF, example, test, guide');
+
+		// set default header data
+		$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
+
+		// set header and footer fonts
+		$pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+		$pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+
+		// set default monospaced font
+		$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+		// set margins
+		$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+		$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+		$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+
+		// set auto page breaks
+		$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+		// set image scale factor
+		$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+		$pdf->AddPage();
+
+		$style = array('width' => 0.5, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0));
+
+		$pdf->Line(10, 43, 200, 43, $style);
+
+
+		$pdf->SetFont('times');
+		$pdf->Cell(0,20,'',0,1);
+		$pdf->Cell(0,0,'Laporan ini mengacu pada izin - izin yang masuk pada : ',0,1);
+
+		$pdf->Cell(0,0,'Bulan : '.$monthName[$bulan],0,1);
+		$pdf->Cell(0,0,'Tahun : '.$tahun,0,1);
+		$pdf->Ln();
+		$pdf->Ln();
+
+		$pdf->Cell(0,0,'Tabel 1 - Tabel Ringkasan Izin',0,1);
+		$columnWidth = [60,40,43,40];
+		$header = ['Jenis Izin','Jumlah Izin Masuk','Jumlah Izin Diterima','Jumlah Izin Ditolak'];
+		$list = [];
+		array_push($list, ['Izin Angkutan Umum',$jumlahIzinAngkot,$jumlahIzinDiterimaAngkot,$jumlahIzinDitolakAngkot]);
+		array_push($list, ['Izin Taksi',$jumlahIzinTaksi,$jumlahIzinDiterimaTaksi,$jumlahIzinDitolakTaksi]);
+		$pdf->ColoredTable($header,$list,$columnWidth);
+		$pdf->Ln();
+
+		//Tabel Rincian Izin
+		$pdf->Cell(0,0,'Tabel 2 - Tabel Rincian Izin',0,1);
+
+		$columnWidth = [20, 60, 35, 35, 35];
+		$header = ['ID','Jenis Izin','Status','Perusahaan','Biaya'];
+        $pdf->ColoredTable($header,$listIzinTable,$columnWidth);
+
+        //Pie Sector
+        /*$xc = 50;
+		$yc = 103;
+		$r = 30;
+        $pdf->SetFillColor(255, 255, 175);
+		$pdf->PieSector($xc, $yc, $r, 0, 180, 'F', false, 0, 2);
+
+		$pdf->SetFillColor(123, 184, 237);
+		$pdf->PieSector($xc, $yc, $r, 180, 0, 'F', false, 0, 2);
+
+
+		// write labels
+		$pdf->PieLabel("Angkutan Umum",$xc,$yc,$r,0,180,0);
+		$pdf->PieLabel("Taksi",$xc,$yc,$r,180,360,0);*/
+
+		$pdf->Output('hello_world.pdf');
+
 	}
 }
