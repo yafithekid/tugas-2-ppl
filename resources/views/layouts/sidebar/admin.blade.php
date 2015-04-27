@@ -7,10 +7,16 @@
   <div id="sidebar"  class="nav-collapse ">
       <!-- sidebar menu start-->
       <ul class="sidebar-menu" id="nav-accordion">
-      
           <p class="centered"><a href="#"><img src="{{asset('/atia/img/bandung-logo.png')}}" width="60"></a></p>
           <h5 class="centered">{{Auth::user()->nama}}</h5>
-            
+
+          <li class="sub-menu">
+              <a class="@if(Route::is('izin.admin.index')) @endif" href="{{route('izin.admin.listreport')}}">
+                  <i class="fa fa-file-pdf-o"></i>
+                  <span>Laporan</span>
+              </a>
+          </li>
+
           <li class="sub-menu">
               <a class="@if(Route::is('izin.admin.index')) active @endif" href="{{route('izin.admin.index')}}">
                   <i class="fa fa-tasks"></i>

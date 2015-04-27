@@ -43,7 +43,7 @@ Route::group(['prefix'=>'izin','namespace'=>'Izin'],function(){
     //CRUD untuk admin
     Route::group(['prefix'=>'admin'],function(){
         Route::get('/index',['as'=>'izin.admin.index','uses'=>'AdminController@getIndex']);
-        Route::get('/report',['as'=>'izin.admin.report','uses'=>'AdminController@getListReport']);
+        Route::get('/report',['as'=>'izin.admin.listreport','uses'=>'AdminController@getListReport']);
         Route::get('/report/{month}',['as'=>'izin.admin.report','uses'=>'AdminController@getReport']);
         Route::get('/{id}/read',['as'=>'izin.admin.read','uses'=>'AdminController@getRead']);
         Route::get('/{id}/update',['as'=>'izin.admin.update','uses'=>'AdminController@getUpdate']);
