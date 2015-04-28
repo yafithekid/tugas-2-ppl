@@ -67,4 +67,9 @@ class Izin extends Model {
         $this->updated_by_pengguna = 0;
         $this->save();
     }
+
+    public function validMulaiPerpanjangIzin()
+    {
+        return strtotime($this->tanggal_perpanjangan) - 3600 * 24 * 30 < time();
+    }
 }

@@ -120,4 +120,22 @@ class PenggunaController extends Controller {
 		Session::flash('notif-success','Izin berhasil dibatalkan');
 		return redirect()->route('izin.pengguna.read',['id'=>$id]);
 	}
+
+	public function getPerpanjangIzin($id)
+	{
+		$izin = Izin::findOrFail($id);
+		$izin->tanggal_perpanjangan = null;
+		Event::fire('izin.updated_by_pengguna',[$izin]);
+		$list_dokumen = $izin->dokumens;
+		//dd($list_dokumen);
+		foreach ($list_dokumen as $dokumen) {
+			//dd($dokumen->template);
+			if ($dokumen->template->butuh_perpanjangan){
+				$dokumen->status = Dokumen::STATUS_BUTUH_PERPANJANGAN;
+				//dd($dokumen);
+				$dokumen->save();
+			}	
+		}
+		return redirect()->route('izin.pengguna.read',['id'=>$id]);
+	}
 }

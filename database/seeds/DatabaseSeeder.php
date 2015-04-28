@@ -24,8 +24,10 @@ class DatabaseSeeder extends Seeder {
 		$this->command->info('Jenis Izin ditambahkan');
 		$this->call('TemplateIzinSeeder');
 		$this->command->info('Template Izin ditambahkan');
-
-
+		$this->call('IzinSeeder');
+		$this->command->info('Izin ditambahkan');
+		$this->call('DokumenSeeder');
+		$this->command->info('Dokumen ditambahkan');
 	}
 
 }

@@ -1,4 +1,5 @@
 <?php use App\Models\Dokumen;
+use App\Models\Izin;
 	use App\Models\Status;
 	use App\Models\Template; ?>
 @extends('layouts.pengguna')
@@ -28,8 +29,11 @@
 		<div>
 			<b>Berlaku hingga</b><br/>
 			<p>
-			 @if ($izin->tanggal_perpanjangan != null)
+			@if ($izin->tanggal_perpanjangan != null)
 	            {{$izin->tanggal_perpanjangan}}
+	            @if ($izin->validMulaiPerpanjangIzin())
+	            	<a class='btn btn-warning' href='{{route('izin.pengguna.perpanjang_izin',['id'=>$izin->id])}}' onclick='return confirm("Berberapa dokumen harus diupload ulang. Lanjutkan?")'>Perpanjang</a>
+	            @endif
 	        @else
 	            Izin belum diterima, atau masa berlaku belum ditentukan
 	        @endif
@@ -92,6 +96,8 @@
 	                    		<span class = 'label label-success'>Sudah diterima</span>
 	                    	@elseif($dokumen->status == DOKUMEN::STATUS_BERMASALAH)
 	                    		<span class = 'label label-warning'>Bermasalah</span>
+	                    	@elseif($dokumen->status == Dokumen::STATUS_BUTUH_PERPANJANGAN)
+	                    		<span class='label label-warning'>Butuh Perpanjangan</span>
 	                    	@endif
 		                    </td>
 	                        <td>

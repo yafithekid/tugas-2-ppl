@@ -8,7 +8,8 @@ class Dokumen extends Model {
 	const STATUS_PENDING = 2;
 	const STATUS_OK = 3;
 	const STATUS_BERMASALAH = 4;
-
+    const STATUS_BUTUH_PERPANJANGAN = 5;
+    
 	protected $table = 'dokumen';
     public $timestamps = false;
 

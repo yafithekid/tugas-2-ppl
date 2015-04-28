@@ -22,6 +22,9 @@
                     @if($izin->updated_by_admin)
                     	<span class="label label-primary">Diperbahurui</span>
                     @endif
+                    @if($izin->validMulaiPerpanjangIzin())
+                        <span class="label label-warning">Butuh perpanjangan</span>
+                    @endif
                 </td>
                     <td>{{$izin->jenisIzin->nama}}</td>
                 </tr>

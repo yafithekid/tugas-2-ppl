@@ -38,6 +38,7 @@ Route::group(['prefix'=>'izin','namespace'=>'Izin'],function(){
         Route::get('/{id}/read',['as'=>'izin.pengguna.read','uses'=>'PenggunaController@getRead']);
         Route::post('/{id}/upload-dokumen/{template_id}',['as'=>'izin.pengguna.upload_dokumen','uses'=>'PenggunaController@postUploadDokumen']);
         Route::get('/{id}/cancel',['as'=>'izin.pengguna.cancel','uses'=>'PenggunaController@getCancel']);
+        Route::get('/{id}/perpanjang-izin',['as'=>'izin.pengguna.perpanjang_izin','uses'=>'PenggunaController@getPerpanjangIzin']);
     });
     //CRUD untuk admin
     Route::group(['prefix'=>'admin'],function(){

@@ -12,6 +12,7 @@
             <tr>
                 <th>Nama</th>
                 <th>Aksi</th>
+                <th>Butuh Perpanjang</th>
                 <th>Upload</th>
             </tr>
 
@@ -24,6 +25,13 @@
                 @endif
                 <td>
                     <a href='{{URL::route("izin.template.update",["id"=>$template->id])}}'><i class='glyphicon glyphicon-pencil'></i></a> 
+                </td>
+                <td>
+                    @if ($template->butuh_perpanjangan)
+                        Ya
+                    @else
+                        Tidak
+                    @endif
                 </td>
                 <td>
                     <form action='{{route('izin.template.upload.submit',['id'=>$template->id])}}' class='form-inline' method='post' enctype='multipart/form-data'>

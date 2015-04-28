@@ -6,13 +6,16 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddButuhPerpanjanganDiTemplateIzin' => $baseDir . '/database/migrations/2015_04_28_050020_add_butuh_perpanjangan_di_template_izin.php',
     'AddPerusahaanColumnToIzin' => $baseDir . '/database/migrations/2015_04_28_033205_add_perusahaan_column_to_izin.php',
     'CreateTables' => $baseDir . '/database/migrations/2015_04_19_053644_create_tables.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
+    'DokumenSeeder' => $baseDir . '/database/seeds/DokumenSeeder.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',
     'File_Iterator_Facade' => $vendorDir . '/phpunit/php-file-iterator/src/Facade.php',
     'File_Iterator_Factory' => $vendorDir . '/phpunit/php-file-iterator/src/Factory.php',
     'IlluminateQueueClosure' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/IlluminateQueueClosure.php',
+    'IzinSeeder' => $baseDir . '/database/seeds/IzinSeeder.php',
     'JenisIzinSeeder' => $baseDir . '/database/seeds/JenisIzinSeeder.php',
     'PHPUnit_Exception' => $vendorDir . '/phpunit/phpunit/src/Exception.php',
     'PHPUnit_Extensions_GroupTestSuite' => $vendorDir . '/phpunit/phpunit/src/Extensions/GroupTestSuite.php',
