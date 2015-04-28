@@ -1,3 +1,6 @@
+<?php
+use App\Models\Status;
+?>
 @extends('layouts.admin')
 @section('content')
 <div class='row'>
@@ -17,6 +20,7 @@
 					</tr>
                     <?php $i = 0; ?>
                     @foreach ($listIzin as $izin)
+                    <?php if ($izin->getCurrentStatusId() == Status::CANCELLED) continue;?>
                     <tr>
                         <td>{{++$i}}</td>
                         <td>

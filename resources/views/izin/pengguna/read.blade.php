@@ -140,7 +140,7 @@ use App\Models\Izin;
 	<div><!-- end Tabel Dokumen -->
 
 	<div class='row'>
-		<a href='{{route("izin.pengguna.cancel",['id'=>$izin->id])}}' class="btn btn-danger">Batalkan Izin</a>
+		<a href='{{route("izin.pengguna.cancel",['id'=>$izin->id])}}' class="btn btn-danger" onclick='return confirm("Aksi ini tidak dapat dibatalkan. Lanjutkan?")'>Batalkan Izin</a>
 	</div>
 
 	<br>
