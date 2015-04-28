@@ -86,4 +86,13 @@ class AdminController extends Controller {
 		Session::flash('notif-success','Dokumen berhasil ditolak');
 		return redirect()->route('izin.admin.read',compact('izin'));
 	}
+
+	public function getMarkSpam($id)
+	{
+		$izin = Izin::findOrFail($id);
+		$izin->spam = !$izin->spam;
+		$izin->save();
+		Event::fire('izin.updated_by_admin',[$izin]);
+		return redirect()->route('izin.admin.index');
+	}
 }

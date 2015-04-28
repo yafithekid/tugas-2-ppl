@@ -30,7 +30,7 @@ class IzinUpdatedEventHandler {
         try {
             Mail::send('izin.pengguna.email_notifikasi', $data, function($message) use ($pengguna)
             {
-              $message->from('if3250.p1.kel1@gmail.com', 'Admin Tamanku');
+              $message->from('if3250.p1.kel1@gmail.com', 'Administrasi Aplikasi Terkait Izin Angkutan');
               $message->to($pengguna['email'], $pengguna['name'])->subject('Perubahan status izin angkutan');
             });
         } catch (\Exception $e) {

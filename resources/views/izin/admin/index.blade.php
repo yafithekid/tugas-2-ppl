@@ -13,6 +13,7 @@
 						<th>Nama </th>
 						<th>Jenis </th>
                         <th>Pemohon</th>
+                        <th>Aksi</th>
 					</tr>
                     <?php $i = 0; ?>
                     @foreach ($listIzin as $izin)
@@ -23,9 +24,19 @@
                         @if($izin->updated_by_pengguna)
                         	<span class="label label-primary">Diperbahurui</span>
                         @endif
+                        @if($izin->spam)
+                            <span class='label label-danger'>Spam</span>
+                        @endif
                     </td>
                         <td>{{$izin->jenisIzin->nama}}</td>
                         <td>{{$izin->pengguna->nama}}</td>
+                        <td>
+                            @if (!$izin->spam)
+                            <a href='{{route('izin.admin.mark_spam',['id'=>$izin->id])}}' class='label label-danger'>Tandai spam</a>
+                            @else
+                            <a href='{{route('izin.admin.mark_spam',['id'=>$izin->id])}}' class='label label-success'>Bukan spam</a>
+                            @endif
+                        </td>
                     </tr>
                     @endforeach
 				</table>

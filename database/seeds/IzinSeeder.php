@@ -26,7 +26,8 @@ class IzinSeeder extends Seeder {
                 'alamat_perusahaan' => 'Jalan Sadang Serang 10 Bandung',
                 'alamat_garasi' => 'Jalan Sadang Serang 10 Bandung',
                 'npwp' => '1234567891011',
-                'tanggal_perpanjangan' => null
+                'tanggal_perpanjangan' => null,
+                'spam' => 0,
             ],
             [
                 'id' => 2,
@@ -38,7 +39,8 @@ class IzinSeeder extends Seeder {
                 'alamat_perusahaan' => 'Jalan Sadang Serang 10 Bandung',
                 'alamat_garasi' => 'Jalan Sadang Serang 10 Bandung',
                 'npwp' => '1234567891011',
-                'tanggal_perpanjangan' => date('Y-m-d')
+                'tanggal_perpanjangan' => date('Y-m-d'),
+                'spam' => 0
             ]
         ]);
         

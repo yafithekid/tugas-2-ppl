@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'AddButuhPerpanjanganDiTemplateIzin' => $baseDir . '/database/migrations/2015_04_28_050020_add_butuh_perpanjangan_di_template_izin.php',
+    'AddKolomSpamKeIzin' => $baseDir . '/database/migrations/2015_04_28_140543_add_kolom_spam_ke_izin.php',
     'AddPerusahaanColumnToIzin' => $baseDir . '/database/migrations/2015_04_28_033205_add_perusahaan_column_to_izin.php',
     'CreateTables' => $baseDir . '/database/migrations/2015_04_19_053644_create_tables.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
@@ -430,6 +431,7 @@ return array(
     'SebastianBergmann\\Version' => $vendorDir . '/sebastian/version/src/Version.php',
     'SessionHandlerInterface' => $vendorDir . '/symfony/http-foundation/Symfony/Component/HttpFoundation/Resources/stubs/SessionHandlerInterface.php',
     'StatusSeeder' => $baseDir . '/database/seeds/StatusSeeder.php',
+    'TambahKolomApakahDokumenButuhDiuploadAtauTidak' => $baseDir . '/database/migrations/2015_04_28_133744_tambah_kolom_apakah_dokumen_butuh_diupload_atau_tidak.php',
     'TemplateIzinSeeder' => $baseDir . '/database/seeds/TemplateIzinSeeder.php',
     'TemplateSeeder' => $baseDir . '/database/seeds/TemplateSeeder.php',
     'TestCase' => $baseDir . '/tests/TestCase.php',
