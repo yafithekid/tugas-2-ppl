@@ -81,17 +81,25 @@ use App\Models\Izin;
 	                        <td>{{++$i}}</td>
 	                        <td>
 	                            {{$dokumen->nama}}<br/>
-	                            @if ($dokumen->url == null)
-	                            Belum upload file
-	                            @else
-	                            <a href="{{asset($dokumen->url)}}">Lihat hasil upload</a> 
-	                            @endif
-	                            |
-	                            @if ($dokumen->template->url != '')
-		                        <a href="{{asset($dokumen->template->url)}}">Download template</a>
+	                            @if ($dokumen->template->butuh_upload)
+		                            @if ($dokumen->url == null)
+		                            Belum upload file
+		                            @else
+		                            <a href="{{asset($dokumen->url)}}">Lihat hasil upload</a> 
+		                            @endif
+		                            
+		                            |
+
+		                            @if ($dokumen->template->url != '')
+			                        <a href="{{asset($dokumen->template->url)}}">Download template</a>
+			                        @else
+			                        Template tidak tersedia
+			                        @endif
 		                        @else
-		                        Template tidak tersedia
+		                        	<a href='#'>Lihat data</a>
 		                        @endif
+	                            
+	                            
 	                        </td>
 	                        <td>
 	                    	@if($dokumen->status == DOKUMEN::STATUS_BELUM)

@@ -102,7 +102,7 @@
                     <!-- end of status Dokumen -->
 
                     <!--tombol Download, setujui dan tidak setujui -->
-                    @if($dokumen->url == '')
+                    @if($dokumen->status == Dokumen::STATUS_BELUM)
                     	<td><a href = {{route('izin.admin.dokumen.agree',['id'=>$izin->id,'dokumen_id'=>$dokumen->id])}} class = 'btn btn-success btn-sm' disabled>Setujui</a>
                     	<a href = {{route('izin.admin.dokumen.disagree',['id'=>$izin->id,'dokumen_id'=>$dokumen->id])}} class = 'btn btn-warning btn-sm' disabled>Tidak setujui</a></td>
                     @else

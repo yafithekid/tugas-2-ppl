@@ -9,7 +9,7 @@
               </div>
             @endif
             <!--logo start-->
-            <a href="index.html" class="logo"><b>Aplikasi Terkait Izin Angkutan</b></a>
+            <a href="#" class="logo"><b>Aplikasi Terkait Izin Angkutan</b></a>
             <!--logo end-->
                 <ul class="nav top-menu pull-right">
                     <!-- settings start -->
