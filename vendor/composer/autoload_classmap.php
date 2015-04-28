@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddPerusahaanColumnToIzin' => $baseDir . '/database/migrations/2015_04_28_033205_add_perusahaan_column_to_izin.php',
     'CreateTables' => $baseDir . '/database/migrations/2015_04_19_053644_create_tables.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',

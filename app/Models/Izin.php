@@ -6,7 +6,7 @@ use App\Models\Status;
 class Izin extends Model {
 
 	protected $table = 'izin';
-    protected $fillable = ['deskripsi','jenisizin_id'];
+    protected $fillable = ['deskripsi','jenisizin_id','nama_perusahaan','alamat_perusahaan','nama_garasi','npwp'];
 
     public $timestamps = false;
     public static $rules = [

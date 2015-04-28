@@ -15,6 +15,10 @@
             <div class='col-md-2'>Nama</div><div class='col-md-10'>{{$izin->pengguna->nama}}</div>
             <div class='col-md-2'>No KTP</div><div class='col-md-10'>{{$izin->pengguna->no_ktp}}</div>
             <div class='col-md-2'>Alamat</div><div class='col-md-10'>{{$izin->pengguna->alamat}}</div>
+            <div class='col-md-2'>Nama Perusahaan</div><div class='col-md-10'>{{$izin->nama_perusahaan}}</div>
+            <div class='col-md-2'>Alamat Perusahaan</div><div class='col-md-10'>{{$izin->alamat_perusahaan}}</div>
+            <div class='col-md-2'>Alamat Garasi</div><div class='col-md-10'>{{$izin->alamat_garasi}}</div>
+            <div class='col-md-2'>No NPWP</div><div class='col-md-10'>{{$izin->npwp}}</div>
         </div>
         <div class='clearfix'></div>
 	</div><!-- end of Pemohon -->
@@ -22,6 +26,15 @@
 	<!-- Keterangan -->
 	<div class ='row' style='margin-top:10px;'>
 		<div>
+			<b>Berlaku hingga</b><br/>
+			<p>
+			 @if ($izin->tanggal_perpanjangan != null)
+	            {{$izin->tanggal_perpanjangan}}
+	        @else
+	            Izin belum diterima, atau masa berlaku belum ditentukan
+	        @endif
+	    	</p>
+
             <b>Status</b><br/>
             	<p>{{$izin->getCurrentNamaStatus()}}</p>
 

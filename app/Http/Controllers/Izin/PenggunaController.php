@@ -44,6 +44,10 @@ class PenggunaController extends Controller {
 		$izin->jenisizin_id = Request::input('jenisizin_id');
 		$izin->pengguna_id = Auth::user()->id;
 		$izin->tanggal_pengajuan = date("Y-m-d");
+		$izin->nama_perusahaan = Request::input('nama_perusahaan');
+		$izin->alamat_perusahaan = Request::input('alamat_perusahaan');
+		$izin->alamat_garasi = Request::input('alamat_garasi');
+		$izin->npwp = Request::input('npwp');
 		$validator = Validator::make(Request::all(),Izin::$rules);
 		if (!$validator->fails()){
 			$izin->save();

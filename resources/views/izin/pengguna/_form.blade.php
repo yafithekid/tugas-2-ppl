@@ -16,6 +16,26 @@
 </div>
 
 <div class='form-group'>
+    <label for='nama_perusahaan'>Nama Perusahaan</label>
+    <input name='nama_perusahaan' class='form-control' required/>
+</div>
+
+<div class='form-group'>
+    <label for='alamat_perusahaan'>Alamat Perusahaan</label>
+    <input name='alamat_perusahaan' class='form-control' required/>
+</div>
+
+<div class='form-group'>
+    <label for='alamat_garasi'>Alamat Garasi</label>
+    <input name='alamat_garasi' class='form-control' required/>
+</div>
+
+<div class='form-group'>
+    <label for='npwp'>No NPWP</label>
+    <input name='npwp' class='form-control' required/>
+</div>
+
+<div class='form-group'>
     <input type='submit' value='{{$button}}' class='btn btn-primary'/>
 </div>
 
