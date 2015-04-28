@@ -104,6 +104,10 @@ class PenggunaController extends Controller {
 
 		$filePath = public_path().'/uploads/dokumen/'.$id.'/';
 		$file = Input::file('file');
+		if (!in_array($file->getClientOriginalExtension(),['png','jpg','pdf'])){
+			Session::flash('notif-danger','Ekstensi file harus pdf, jpg atau png');
+			return redirect()->route('izin.pengguna.read',['id'=>$id]);
+		}
 		$file->move($filePath,$template_id.'.'.$file->getClientOriginalExtension());
 
 		$dokumen = Dokumen::where('izin_id',$id)->where('template_id',$template_id)->first();
