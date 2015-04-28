@@ -70,6 +70,11 @@ class Izin extends Model {
 
     public function validMulaiPerpanjangIzin()
     {
-        return strtotime($this->tanggal_perpanjangan) - 3600 * 24 * 30 < time();
+        if ($this->tanggal_perpanjangan == null){
+            return false;
+        } else {
+            return strtotime($this->tanggal_perpanjangan) - 3600 * 24 * 30 < time();
+        }
+        
     }
 }
