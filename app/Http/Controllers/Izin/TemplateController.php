@@ -34,6 +34,8 @@ class TemplateController extends Controller {
 	{
 		$template = Template::findOrFail($id);
 		$template->nama = Request::input('nama');
+		$template->butuh_upload = Request::input('butuh_upload');
+		$template->butuh_perpanjangan = Request::input('butuh_perpanjangan');
 		$template->save();
 		Session::flash('notif-success','Template berhasil diubah');
 		return redirect()->route('izin.template.index');

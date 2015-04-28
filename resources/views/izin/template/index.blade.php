@@ -13,6 +13,7 @@
                 <th>Nama</th>
                 <th>Aksi</th>
                 <th>Butuh Perpanjang</th>
+                <th>Butuh Upload</th>
                 <th>Upload</th>
             </tr>
 
@@ -28,6 +29,13 @@
                 </td>
                 <td>
                     @if ($template->butuh_perpanjangan)
+                        Ya
+                    @else
+                        Tidak
+                    @endif
+                </td>
+                <td>
+                    @if ($template->butuh_upload)
                         Ya
                     @else
                         Tidak
