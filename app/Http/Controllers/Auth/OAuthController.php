@@ -60,7 +60,8 @@ class OAuthController extends Controller {
             $user->save();
             Auth::login($user);
             $access_token = Pengguna::getAccessToken();
-            return view('oauth.authenticated',compact('access_token'));
+            return redirect()->route('izin.pengguna.index');
+            //return view('oauth.authenticated',compact('access_token'));
         } else {
             dd($user_json);
             die();

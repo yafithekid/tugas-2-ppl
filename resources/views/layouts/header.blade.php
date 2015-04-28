@@ -23,7 +23,12 @@
                     @else
                     <li>
                       <a href='{{route('oauth.do_authorization')}}' class='logout'>
-                        Login dengan dukcapil
+                        Login sebagai pengguna
+                      </a>
+                    </li>
+                    <li>
+                      <a href='{{route('login')}}' class='logout'>
+                        Admin
                       </a>
                     </li>
                     @endif

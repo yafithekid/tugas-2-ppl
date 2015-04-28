@@ -5,6 +5,7 @@ use App\Events\Event;
 use App\Models\Izin;
 use App\Models\Pengguna;
 use \Mail;
+use \Session;
 
 //use Illuminate\Queue\SerializesModels;
 
@@ -25,8 +26,8 @@ class IzinUpdatedEventHandler {
               $message->from('if3250.p1.kel1@gmail.com', 'Admin Tamanku');
               $message->to($pengguna['email'], $pengguna['name'])->subject('Perubahan status izin angkutan');
             });
-        } catch (Exception $e) {
-            dd("kirim email gagal");
+        } catch (\Exception $e) {
+            Session::set('notif-danger','Email gagal dikirim');
         }
         
 	}

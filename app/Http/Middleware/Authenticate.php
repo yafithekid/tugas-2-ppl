@@ -35,7 +35,8 @@ class Authenticate {
 	public function handle($request, Closure $next)
 	{
 		if (!Pengguna::validAccessToken()){
-			if (Pengguna::expiredAccessToken()){
+			//minta authorization tiap login 
+			if (1 == 1){
 				return redirect()->route('oauth.do_authorization');
 			} else {
 				return redirect()->route('oauth.request_access_token');

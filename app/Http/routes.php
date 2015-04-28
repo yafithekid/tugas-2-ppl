@@ -21,9 +21,9 @@ Route::get('/landing-page',['as'=>'landing_page','uses'=>'HomeController@index']
 
 
 Route::group(['namespace'=>'Auth'],function(){
-    Route::get('/login',['as'=>'login','uses'=>'AuthController@getLogin']);
-    Route::post('/login',['as'=>'login.submit','uses'=>'AuthController@postLogin']);
-    Route::get('/logout',['as'=>'logout','uses'=>'AuthController@getLogout']);
+    Route::get('/login',['as'=>'login','uses'=>'AdminAuthController@getLogin']);
+    Route::post('/login',['as'=>'login.submit','uses'=>'AdminAuthController@postLogin']);
+    Route::get('/logout',['as'=>'logout','uses'=>'AdminAuthController@getLogout']);
     Route::get('/oauth/request-access-token',['as'=>'oauth.request_access_token','uses'=>'OAuthController@getRequestAccessToken']);
     Route::get('/oauth/authenticated',['as'=>'oauth.authenticated','uses'=>'OAuthController@getAuthenticated']);
     Route::get('/oauth/do-authorization',['as'=>'oauth.do_authorization','uses'=>'OAuthController@doAuthorization']);
@@ -83,6 +83,5 @@ Route::group(['prefix'=>'izin','namespace'=>'Izin'],function(){
 });
 
 Route::controllers([
-	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
