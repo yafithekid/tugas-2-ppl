@@ -22,7 +22,7 @@ class DokumenSeeder extends Seeder {
             'izin_id'=>1,
             'template_id'=>1,
             'status'=>1,
-            'url' =>''
+            'url' =>'uploads/dokumen/1/1.jpg'
             ],
             [
             'id'=> 2,
@@ -46,7 +46,7 @@ class DokumenSeeder extends Seeder {
             'izin_id'=> 1,
             'template_id'=> 4,
             'status'=> 1,
-            'url' =>''
+            'url' =>'uploads/dokumen/1/4.jpg'
             ],
             [
             'id'=> 5,
@@ -54,7 +54,7 @@ class DokumenSeeder extends Seeder {
             'izin_id'=> 1,
             'template_id'=> 5,
             'status'=> 1,
-            'url' =>''
+            'url' =>'uploads/dokumen/1/5.jpg'
             ],
             [
             'id'=> 6,
@@ -62,7 +62,7 @@ class DokumenSeeder extends Seeder {
             'izin_id'=> 1,
             'template_id'=> 6,
             'status'=> 1,
-            'url' =>''
+            'url' =>'uploads/dokumen/1/6.jpg'
             ],
             [
             'id'=> 7,
@@ -70,7 +70,7 @@ class DokumenSeeder extends Seeder {
             'izin_id'=> 1,
             'template_id'=> 7,
             'status'=> 1,
-            'url' =>''
+            'url' =>'uploads/dokumen/1/7.jpg'
             ],
             [
             'id'=> 8,
@@ -78,7 +78,7 @@ class DokumenSeeder extends Seeder {
             'izin_id'=> 1,
             'template_id'=> 8, 
             'status'=>  1,
-            'url' =>''
+            'url' =>'uploads/dokumen/1/8.jpg'
             ],
             [
             'id'=> 9,
@@ -86,7 +86,7 @@ class DokumenSeeder extends Seeder {
             'izin_id'=> 1,
             'template_id'=> 11,
             'status'=> 1,
-            'url' =>''
+            'url' =>'uploads/dokumen/1/9.jpg'
             ],
             [
             'id'=>10,
