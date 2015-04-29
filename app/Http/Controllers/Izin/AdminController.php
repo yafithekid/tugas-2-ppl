@@ -33,6 +33,24 @@ class AdminController extends Controller {
 	{
 		$izin = Izin::findOrFail($id);
 		$izin->readedByAdmin();
+		$templates = $izin->jenisIzin->templates;
+		//generate dokumen
+		foreach ($templates as $template) {
+			if (Dokumen::where('izin_id','=',$id)->where('template_id','=',$template->id)->first()==null){
+				$dokumen = new Dokumen();
+				$dokumen->nama = $template->nama;
+				$dokumen->izin_id = $id;
+				$dokumen->template_id = $template->id;
+				$dokumen->save();
+				if (!$dokumen->template->butuh_upload){
+					$dokumen->status = Dokumen::STATUS_PENDING;
+				} else {
+					$dokumen->status = Dokumen::STATUS_BELUM;
+				}
+				$dokumen->save();
+			}
+		}
+		
 		return view('izin.admin.read',compact('izin'));
 	}
 
