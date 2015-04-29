@@ -41,6 +41,45 @@ class IzinSeeder extends Seeder {
                 'npwp' => '1234567891011',
                 'tanggal_perpanjangan' => date('Y-m-d',time() + 3600 * 24 * 365),
                 'spam' => 0
+            ],
+            [
+                'id' => 3,
+                'tanggal_pengajuan' => date('Y-m-d',time() - 3600 * 24 * 30),
+                'status_pembayaran' => 1,
+                'pengguna_id' => 1,
+                'jenisizin_id' => 2,
+                'nama_perusahaan' => 'GR',
+                'alamat_perusahaan' => 'Jalan Taman Sari 10 Bandung',
+                'alamat_garasi' => 'Jalan Taman Sari 10 Bandung',
+                'npwp' => '1234567891213',
+                'tanggal_perpanjangan' => null,
+                'spam' => 0
+            ],
+            [
+                'id' => 4,
+                'tanggal_pengajuan' => date('Y-m-d',time() - 3600 * 24 * (2*30)),
+                'status_pembayaran' => 1,
+                'pengguna_id' => 3,
+                'jenisizin_id' => 2,
+                'nama_perusahaan' => 'GR',
+                'alamat_perusahaan' => 'Jalan Taman Sari 10 Bandung',
+                'alamat_garasi' => 'Jalan Taman Sari 10 Bandung',
+                'npwp' => '1234567891213',
+                'tanggal_perpanjangan' => date('Y-m-d'),
+                'spam' => 0
+            ],
+            [
+                'id' => 5,
+                'tanggal_pengajuan' => date('Y-m-d',time() - 3600 * 24 * (3*30)),
+                'status_pembayaran' => 1,
+                'pengguna_id' => 3,
+                'jenisizin_id' => 1,
+                'nama_perusahaan' => 'BB',
+                'alamat_perusahaan' => 'Jalan Taman Sari 10 Bandung',
+                'alamat_garasi' => 'Jalan Taman Sari 10 Bandung',
+                'npwp' => '1234567891213',
+                'tanggal_perpanjangan' => null,
+                'spam' => 0
             ]
         ]);
         
