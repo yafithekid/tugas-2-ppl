@@ -80,7 +80,7 @@ class Izin extends Model {
     }
 
     public function getNamaIzin() {
-        $namaIzin = JenisIzin::findOrFail($this->id);
+        $namaIzin = JenisIzin::findOrFail($this->jenisizin_id);
         if ($namaIzin == null) {
             return '';
         }
