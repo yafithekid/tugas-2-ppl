@@ -55,8 +55,11 @@ class OAuthController extends Controller {
         //register user
         $user_json = Bus::dispatch(new RequestCurrentUser(Pengguna::getAccessToken()));
         if (isset($user_json)){
-            $user = Pengguna::findOrNew($user_json['id']);
-            $user->nama = $user_json['nama'];
+            $user = Pengguna::where('no_ktp','=',$user_json['id'])->first();
+            if ($user === null) $user = new Pengguna();
+
+            $user->nama = $user_json['nama_penduduk'];
+            $user->alamat = $user_json['alamat_penduduk'];
             $user->save();
             Auth::login($user);
             $access_token = Pengguna::getAccessToken();

@@ -26,7 +26,8 @@ class RequestCurrentUser extends Command implements SelfHandling {
 	{
 		try {
 			$client = new Client();
-			$request  = $client->createRequest('GET','http://dukcapil.pplbandung.biz.tm/api/penduduk/'.$this->access_token);
+			$request  = $client->createRequest('GET','http://dukcapil.pplbandung.biz.tm/api/penduduk/');
+			$request->addHeader('Authorization','Bearer '.$this->access_token);
 			$response = $client->send($request);
 
 			$json = $response->json();

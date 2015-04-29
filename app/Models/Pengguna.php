@@ -13,8 +13,8 @@ class Pengguna extends Model implements AuthenticatableContract {
 	protected $table = 'pengguna';
     public $timestamps = false;
 
-    const CLIENT_ID = 'fpYXuAXCuhaE2BTm';
-    const CLIENT_SECRET = 'q86B2eLu8ZeOzwB3';
+    const CLIENT_ID = 'Ij5mLtMQx9o1lvX9';
+    const CLIENT_SECRET = 'W4HUMQvdfsyHnv3n';
     const REDIRECT_URI = 'http://127.0.0.1/tugas-2-ppl/public/oauth/after-authorized';
 
 
